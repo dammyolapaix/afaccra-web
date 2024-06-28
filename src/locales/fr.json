@@ -1,0 +1,12 @@
+{
+  "navbar": {
+    "home": "Accueil",
+    "home_href": "/fr",
+    "courses": "Cours",
+    "courses_href": "/fr/cours",
+    "login": "Se connecter",
+    "login_href": "/fr/login",
+    "register": "Registre",
+    "register_href": "/fr/register"
+  }
+}
