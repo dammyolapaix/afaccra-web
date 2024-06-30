@@ -9,4 +9,12 @@ export type LocaleType = {
     register: string
     register_href: string
   }
+  dashboardMenus: {
+    dashboard: string
+    dashboard_href: string
+    courses: string
+    courses_href: string
+    classes: string
+    classes_href: string
+  }
 }

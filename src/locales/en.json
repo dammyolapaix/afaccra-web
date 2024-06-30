@@ -8,5 +8,13 @@
     "login_href": "/en/login",
     "register": "Register",
     "register_href": "/en/register"
+  },
+  "dashboardMenus": {
+    "dashboard": "Dashboard",
+    "dashboard_href": "/en/dashboard",
+    "courses": "Courses",
+    "courses_href": "/en/dashboard/courses",
+    "classes": "Classes",
+    "classes_href": "/en/dashboard/classes"
   }
 }

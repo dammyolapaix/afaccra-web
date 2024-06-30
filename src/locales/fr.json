@@ -3,10 +3,18 @@
     "home": "Accueil",
     "home_href": "/fr",
     "courses": "Cours",
-    "courses_href": "/fr/cours",
+    "courses_href": "/fr/courses",
     "login": "Se connecter",
     "login_href": "/fr/login",
     "register": "Registre",
     "register_href": "/fr/register"
+  },
+  "dashboardMenus": {
+    "dashboard": "Tableau de bord",
+    "dashboard_href": "/fr/dashboard",
+    "courses": "Cours",
+    "courses_href": "/fr/dashboard/courses",
+    "classes": "Classes",
+    "classes_href": "/fr/dashboard/classes"
   }
 }
