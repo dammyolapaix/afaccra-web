@@ -46,8 +46,13 @@ import { cn } from '@/lib/utils'
 import { format } from 'date-fns'
 import { Button } from '@/components/ui/button'
 import { useState } from 'react'
+import { addCourseAction } from '../course.actions'
+import { toast } from 'react-toastify'
+import { useRouter } from 'next/navigation'
+import { ALL_COURSES_ROUTE } from '../course.routes'
 
 export default function CourseForm() {
+  const router = useRouter()
   const [isLoading, setIsLoading] = useState<boolean>(false)
 
   const form = useForm<CourseFormType>({
@@ -60,7 +65,24 @@ export default function CourseForm() {
   console.log(form.formState.errors)
 
   async function onSubmit(values: CourseFormType) {
-    console.log(values)
+    try {
+      setIsLoading(true)
+      const res = await addCourseAction(values)
+
+      console.log(res)
+
+      if (res) setIsLoading(false)
+
+      if (!res.success)
+        for (const error of res.errors) toast.error(error.message)
+
+      if (res.success) {
+        toast.success('Course created successfully')
+        router.push(ALL_COURSES_ROUTE)
+      }
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   return (
