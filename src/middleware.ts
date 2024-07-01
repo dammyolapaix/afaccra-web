@@ -15,8 +15,13 @@ function getLocale(request: NextRequest) {
 }
 
 export function middleware(request: NextRequest) {
-  // Check if there is any supported locale in the pathname
   const { pathname } = request.nextUrl
+
+  // Redirect the user to the login if they are not authenticated
+  if (pathname.includes('dashboard') && !request.cookies.has('token'))
+    return NextResponse.redirect(new URL('/login', request.url))
+
+  // Check if there is any supported locale in the pathname
   const pathnameHasLocale = locales.some(
     (locale) => pathname.startsWith(`/${locale}/`) || pathname === `/${locale}`
   )
