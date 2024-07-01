@@ -50,6 +50,7 @@ import { addCourseAction } from '../course.actions'
 import { toast } from 'react-toastify'
 import { useRouter } from 'next/navigation'
 import { ALL_COURSES_ROUTE } from '../course.routes'
+import Editor from '@/components/editor'
 
 export default function CourseForm() {
   const router = useRouter()
@@ -408,6 +409,38 @@ export default function CourseForm() {
                         />
                       </PopoverContent>
                     </Popover>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </div>
+
+            <div className="grid gap-5 grid-cols-1 md:grid-cols-1">
+              <FormField
+                control={form.control}
+                name="objective"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Objective</FormLabel>
+                    <FormControl>
+                      <Editor {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </div>
+
+            <div className="grid gap-5 grid-cols-1 md:grid-cols-1">
+              <FormField
+                control={form.control}
+                name="curriculum"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Curriculum</FormLabel>
+                    <FormControl>
+                      <Editor {...field} />
+                    </FormControl>
                     <FormMessage />
                   </FormItem>
                 )}
