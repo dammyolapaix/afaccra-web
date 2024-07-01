@@ -61,3 +61,35 @@
 .ql-container {
   min-height: 200px;
 }
+
+.markdown p {
+  margin: 1.5rem auto;
+}
+
+.markdown img {
+  padding: 1rem 0;
+  margin: 0 auto;
+}
+
+.markdown ul {
+  list-style-type: initial;
+  list-style-position: inside;
+}
+
+.markdown ol {
+  list-style-type: decimal;
+  list-style-position: inside;
+}
+
+.markdown h2,
+.markdown h3,
+.markdown h4 {
+  font-size: 27px;
+}
+
+.markdown pre {
+  background: #f4f4f4;
+  padding: 20px;
+  margin: 20px 0;
+  line-height: 2.3;
+}
