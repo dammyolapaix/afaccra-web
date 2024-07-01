@@ -62,14 +62,10 @@ export default function CourseForm() {
     },
   })
 
-  console.log(form.formState.errors)
-
   async function onSubmit(values: CourseFormType) {
     try {
       setIsLoading(true)
       const res = await addCourseAction(values)
-
-      console.log(res)
 
       if (res) setIsLoading(false)
 

@@ -1,3 +1,5 @@
-export default function DashboardCoursePage() {
-  return <div>page</div>
+import Courses from './components/courses'
+
+export default function DashboardCoursesPage() {
+  return <Courses />
 }
