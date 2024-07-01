@@ -18,3 +18,8 @@ export type LocaleType = {
     classes_href: string
   }
 }
+
+export type ErrorResType = {
+  success: false
+  errors: { message: string }[]
+}
