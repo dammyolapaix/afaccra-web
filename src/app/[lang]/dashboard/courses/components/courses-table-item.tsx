@@ -8,7 +8,7 @@ import {
 } from '@/components/ui/dropdown-menu'
 import Link from 'next/link'
 import { MoreHorizontal } from 'lucide-react'
-import { SINGLE_COURSE_ROUTE } from '../course.routes'
+import { EDIT_COURSE_ROUTE, SINGLE_COURSE_ROUTE } from '../course.routes'
 import { Button } from '@/components/ui/button'
 
 export default function CoursesTableItem({
@@ -50,6 +50,9 @@ export default function CoursesTableItem({
           <DropdownMenuContent align="end">
             <DropdownMenuItem asChild className="cursor-pointer">
               <Link href={SINGLE_COURSE_ROUTE(id)}>View Course</Link>
+            </DropdownMenuItem>
+            <DropdownMenuItem asChild className="cursor-pointer">
+              <Link href={EDIT_COURSE_ROUTE(id)}>Edit Course</Link>
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>

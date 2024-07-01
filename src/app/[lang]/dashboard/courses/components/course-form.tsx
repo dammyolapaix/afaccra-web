@@ -10,7 +10,7 @@ import {
   courseLanguageEnum,
   courseSchema,
 } from '../course.schema'
-import { CourseFormType } from '../course.types'
+import { CourseFormType, CourseResType, CourseType } from '../course.types'
 import {
   Card,
   CardContent,
@@ -46,27 +46,50 @@ import { cn } from '@/lib/utils'
 import { format } from 'date-fns'
 import { Button } from '@/components/ui/button'
 import { useState } from 'react'
-import { addCourseAction } from '../course.actions'
+import { addCourseAction, updateCourseAction } from '../course.actions'
 import { toast } from 'react-toastify'
 import { useRouter } from 'next/navigation'
 import { ALL_COURSES_ROUTE } from '../course.routes'
 import Editor from '@/components/editor'
+import { ErrorResType } from '@/types'
 
-export default function CourseForm() {
+export default function CourseForm({ course }: { course?: CourseType }) {
   const router = useRouter()
   const [isLoading, setIsLoading] = useState<boolean>(false)
 
   const form = useForm<CourseFormType>({
     resolver: zodResolver(courseSchema),
     defaultValues: {
-      days: [],
+      titleEn: course?.titleEn ? course.titleEn : undefined,
+      titleFr: course?.titleFr ? course.titleFr : undefined,
+      audience: course?.audience ? course.audience : undefined,
+      language: course?.language ? course.language : undefined,
+      deliveryMode: course?.deliveryMode ? course.deliveryMode : undefined,
+      durationPeriod: course?.durationPeriod
+        ? course.durationPeriod
+        : undefined,
+      durationValue: course?.durationValue ? course.durationValue : undefined,
+      startDate: course?.startDate ? course.startDate : undefined,
+      endDate: course?.endDate ? course.endDate : undefined,
+      startTime: course?.startTime ? course.startTime : undefined,
+      endTime: course?.endTime ? course.endTime : undefined,
+      objective: course?.objective ? course.objective : undefined,
+      curriculum: course?.curriculum ? course.curriculum : undefined,
+      days: course?.days ? course.days : [],
     },
   })
 
   async function onSubmit(values: CourseFormType) {
     try {
       setIsLoading(true)
-      const res = await addCourseAction(values)
+      let res: CourseResType | ErrorResType | null = null
+
+      if (!course) res = await addCourseAction(values)
+
+      if (course)
+        res = await updateCourseAction({ id: course.id, course: values })
+
+      if (res === null) return
 
       if (res) setIsLoading(false)
 
@@ -74,7 +97,9 @@ export default function CourseForm() {
         for (const error of res.errors) toast.error(error.message)
 
       if (res.success) {
-        toast.success('Course created successfully')
+        toast.success(
+          course ? 'Course updated successfully' : 'Course created successfully'
+        )
         router.push(ALL_COURSES_ROUTE)
       }
     } catch (error) {

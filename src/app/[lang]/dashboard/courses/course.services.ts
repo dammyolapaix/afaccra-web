@@ -43,3 +43,49 @@ export const getCourses = async (): Promise<CoursesResType | ErrorResType> => {
     return (error as AxiosError).response?.data as ErrorResType
   }
 }
+
+export const getSingleCourseById = async ({
+  id,
+}: {
+  id: string
+}): Promise<CourseResType | ErrorResType> => {
+  try {
+    const { data } = await makeRequest.get<CourseResType>(`${endPoint}/${id}`, {
+      headers: {
+        Authorization: cookies().has('token')
+          ? `Bearer ${cookies().get('token')?.value}`
+          : undefined,
+      },
+    })
+
+    return data
+  } catch (error) {
+    return (error as AxiosError).response?.data as ErrorResType
+  }
+}
+
+export const updateCourse = async ({
+  id,
+  course,
+}: {
+  id: string
+  course: CourseFormType
+}): Promise<CourseResType | ErrorResType> => {
+  try {
+    const { data } = await makeRequest.patch<CourseResType>(
+      `${endPoint}/${id}`,
+      course,
+      {
+        headers: {
+          Authorization: cookies().has('token')
+            ? `Bearer ${cookies().get('token')?.value}`
+            : undefined,
+        },
+      }
+    )
+
+    return data
+  } catch (error) {
+    return (error as AxiosError).response?.data as ErrorResType
+  }
+}
