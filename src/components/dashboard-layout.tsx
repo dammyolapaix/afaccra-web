@@ -81,6 +81,7 @@ export default function DashboardLayout({
             <nav className="grid items-start px-2 text-sm font-medium lg:px-4">
               {pages.map(({ active, href, icon, name }) => (
                 <Link
+                  key={href}
                   href={href}
                   className={`flex items-center gap-3 rounded-lg px-3 py-2  transition-all hover:text-primary ${
                     active ? 'bg-muted text-primary' : 'text-muted-foreground'
@@ -119,6 +120,7 @@ export default function DashboardLayout({
 
                 {pages.map(({ active, href, iconLg, name }) => (
                   <Link
+                    key={href}
                     href={href}
                     className={`mx-[-0.65rem] flex items-center gap-4 rounded-xl px-3 py-2 hover:text-foreground ${
                       active

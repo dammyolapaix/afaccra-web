@@ -161,7 +161,12 @@ export default function Navbar({
                     {menuItems
                       .filter(({ isLoggedIn }) => isLoggedIn === false)
                       .map(({ href, name }) => (
-                        <Button asChild variant="secondary" className="mx-3">
+                        <Button
+                          asChild
+                          variant="secondary"
+                          className="mx-3"
+                          key={name}
+                        >
                           <Link href={href}>{name}</Link>
                         </Button>
                       ))}
