@@ -20,7 +20,7 @@ import { CourseType } from '../course.types'
 import { ADD_COURSE_ROUTE } from '../course.routes'
 import CoursesTableItem from './courses-table-item'
 
-export default function PoliciesTable({
+export default function CoursesTable({
   count,
   courses,
 }: {
