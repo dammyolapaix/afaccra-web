@@ -3,6 +3,7 @@ import { CourseType } from '../course.types'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import CourseDetails from './course-details'
 import CoursePricesTable from '../price/components/course.prices-table'
+import CourseSchedulesTable from '../schedules/components/course.schedules-table'
 
 export default function Course({ course }: { course: CourseType }) {
   return (
@@ -20,7 +21,7 @@ export default function Course({ course }: { course: CourseType }) {
         <CoursePricesTable prices={course.prices} />
       </TabsContent>
       <TabsContent value="schedule">
-        <></>
+        <CourseSchedulesTable schedules={course.schedules} />
       </TabsContent>
       <TabsContent value="purchases">
         <></>
