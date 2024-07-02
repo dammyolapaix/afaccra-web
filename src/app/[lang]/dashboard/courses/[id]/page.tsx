@@ -1,4 +1,4 @@
-import CourseDetails from '../components/course-details'
+import Course from '../components/course'
 import { getSingleCourseById } from '../course.services'
 import { CourseResType } from '../course.types'
 
@@ -8,5 +8,5 @@ export default async function DashboardSingleCoursePage({
   params: { id: string }
 }) {
   const { course } = (await getSingleCourseById({ id })) as CourseResType
-  return <CourseDetails course={course} />
+  return <Course course={course} />
 }
