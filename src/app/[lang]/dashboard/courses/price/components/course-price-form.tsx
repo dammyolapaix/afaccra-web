@@ -26,24 +26,31 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '@/components/ui/dialog'
-import { Loader2, Plus } from 'lucide-react'
+import { Loader2, Pencil, Plus } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { useEffect, useState } from 'react'
 import { toast } from 'react-toastify'
 import { ErrorResType } from '@/types'
-import { CoursePriceFormType, CoursePriceResType } from '../course.price.types'
+import {
+  CoursePriceFormType,
+  CoursePriceResType,
+  CoursePriceType,
+} from '../course.price.types'
 import {
   courseChildPriceTypeEnum,
   courseLevelPriceTypeEnum,
   coursePriceSchema,
 } from '../course.price.schema'
-import { addCoursePriceAction } from '../course.price.actions'
+import {
+  addCoursePriceAction,
+  updateCoursePriceAction,
+} from '../course.price.actions'
 import { useParams } from 'next/navigation'
 
 export default function CoursePriceForm({
   price,
 }: {
-  price?: CoursePriceFormType
+  price?: CoursePriceType
 }) {
   const params = useParams()
 
@@ -53,7 +60,7 @@ export default function CoursePriceForm({
   const form = useForm<CoursePriceFormType>({
     resolver: zodResolver(coursePriceSchema),
     defaultValues: {
-      amount: price?.amount ? price.amount : undefined,
+      amount: price?.amount ? price.amount / 100 : undefined,
       child: price?.child ? price.child : undefined,
       level: price?.level ? price.level : undefined,
       courseId: params.id ? (params.id as string) : undefined,
@@ -67,8 +74,8 @@ export default function CoursePriceForm({
 
       if (!price) res = await addCoursePriceAction(values)
 
-      // if (price)
-      //   res = await updateCourseAction({ id: course.id, course: values })
+      if (price)
+        res = await updateCoursePriceAction({ id: price.id, price: values })
 
       if (res === null) return
 
@@ -94,13 +101,17 @@ export default function CoursePriceForm({
     <Dialog open={dialogIsOpen} onOpenChange={setDialogIsOpen}>
       <DialogTrigger asChild>
         <Button className="gap-1 text-sm mt-5">
-          <Plus className="h-3.5 w-3.5" />
-          <span className="sr-only sm:not-sr-only">Add Price</span>
+          {price ? (
+            <Pencil className="h-3.5 w-3.5" />
+          ) : (
+            <Plus className="h-3.5 w-3.5" />
+          )}
+          {!price && <span className="sr-only sm:not-sr-only">Add Price</span>}
         </Button>
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>Add Price</DialogTitle>
+          <DialogTitle>{price ? 'Edit' : 'Add'} Price</DialogTitle>
           <DialogDescription>
             Enter the information about the price in the form
           </DialogDescription>
@@ -185,10 +196,11 @@ export default function CoursePriceForm({
               {isLoading ? (
                 <>
                   <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                  Adding Price...
+                  {price ? 'Updating' : 'Adding'}
+                  Price...
                 </>
               ) : (
-                'Add Price'
+                <>{price ? 'Update' : 'Add'} Price</>
               )}
             </Button>
           </form>
