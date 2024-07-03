@@ -2,6 +2,7 @@ import { differenceInHours } from 'date-fns'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { convertTimeToAMPM, formatToMoney, timeToDate } from '@/lib/utils'
 import { CourseType } from '@/app/[lang]/dashboard/courses/course.types'
+import CoursePurchase from './course-purchase'
 
 export default function CoursesItem({
   course: {
@@ -38,8 +39,12 @@ export default function CoursesItem({
         <div className="">{`${durationValue} ${durationPeriod}`}</div>
         <div className="">
           {prices.map(({ amount, id, level }) => (
-            <div key={id}>
-              {level} - {formatToMoney(amount)}
+            <div key={id} className="flex justify-between items-center">
+              <div>
+                {level} - {formatToMoney(amount)}
+              </div>
+
+              <CoursePurchase coursePriceId={id} />
             </div>
           ))}
         </div>
