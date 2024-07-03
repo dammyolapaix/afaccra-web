@@ -1,8 +1,7 @@
 'use client'
 
 import dynamic from 'next/dynamic'
-import { ComponentType, useMemo } from 'react'
-import ReactQuill from 'react-quill'
+import { useMemo } from 'react'
 import 'react-quill/dist/quill.snow.css'
 
 export default function Editor(field: any) {
