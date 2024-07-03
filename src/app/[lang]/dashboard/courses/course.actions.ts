@@ -20,7 +20,7 @@ export const updateCourseAction = async ({
   course,
 }: {
   id: string
-  course: CourseFormType
+  course: Partial<CourseFormType>
 }) => {
   const res = await updateCourse({ id, course })
 

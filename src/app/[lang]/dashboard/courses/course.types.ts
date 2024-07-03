@@ -5,6 +5,7 @@ import { CourseScheduleType } from './schedules/course.schedule.types'
 
 export type CourseType = z.infer<typeof courseSchema> & {
   id: string
+  isPublished: boolean
   prices: CoursePriceType[]
   schedules: CourseScheduleType[]
 }

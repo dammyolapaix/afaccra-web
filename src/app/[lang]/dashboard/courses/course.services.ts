@@ -69,7 +69,7 @@ export const updateCourse = async ({
   course,
 }: {
   id: string
-  course: CourseFormType
+  course: Partial<CourseFormType>
 }): Promise<CourseResType | ErrorResType> => {
   try {
     const { data } = await makeRequest.patch<CourseResType>(

@@ -87,7 +87,16 @@ export default function CourseForm({ course }: { course?: CourseType }) {
       if (!course) res = await addCourseAction(values)
 
       if (course)
-        res = await updateCourseAction({ id: course.id, course: values })
+        res = await updateCourseAction({
+          id: course.id,
+          course: {
+            ...values,
+            titleEn:
+              values.titleEn === course.titleEn ? undefined : values.titleEn,
+            titleFr:
+              values.titleFr === course.titleFr ? undefined : values.titleFr,
+          },
+        })
 
       if (res === null) return
 
