@@ -42,7 +42,7 @@ import {
 } from '@/components/ui/popover'
 import { Calendar } from '@/components/ui/calendar'
 import { CalendarIcon, Loader2 } from 'lucide-react'
-import { cn } from '@/lib/utils'
+import { cn, getDifferingFields } from '@/lib/utils'
 import { format } from 'date-fns'
 import { Button } from '@/components/ui/button'
 import { useState } from 'react'
@@ -89,13 +89,7 @@ export default function CourseForm({ course }: { course?: CourseType }) {
       if (course)
         res = await updateCourseAction({
           id: course.id,
-          course: {
-            ...values,
-            titleEn:
-              values.titleEn === course.titleEn ? undefined : values.titleEn,
-            titleFr:
-              values.titleFr === course.titleFr ? undefined : values.titleFr,
-          },
+          course: getDifferingFields(course, values),
         })
 
       if (res === null) return
