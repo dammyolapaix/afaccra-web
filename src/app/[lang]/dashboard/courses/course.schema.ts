@@ -90,3 +90,7 @@ export const courseSchema = z
       })
     }
   })
+
+export const getCourseQuerySchema = z.object({
+  isPublished: z.boolean().optional(),
+})

@@ -1,8 +1,14 @@
 import { makeRequest } from '@/lib'
-import { CourseFormType, CourseResType, CoursesResType } from './course.types'
+import {
+  CourseFormType,
+  CourseResType,
+  CoursesResType,
+  GetCourseQueryType,
+} from './course.types'
 import { ErrorResType } from '@/types'
 import { cookies } from 'next/headers'
 import { AxiosError } from 'axios'
+import { getQueryStr } from '@/lib/utils'
 
 const endPoint = '/courses'
 
@@ -28,15 +34,20 @@ export const addCourse = async (
   }
 }
 
-export const getCourses = async (): Promise<CoursesResType | ErrorResType> => {
+export const getCourses = async (
+  query?: GetCourseQueryType
+): Promise<CoursesResType | ErrorResType> => {
   try {
-    const { data } = await makeRequest.get<CoursesResType>(`${endPoint}`, {
-      headers: {
-        Authorization: cookies().has('token')
-          ? `Bearer ${cookies().get('token')?.value}`
-          : undefined,
-      },
-    })
+    const { data } = await makeRequest.get<CoursesResType>(
+      query ? `${endPoint}${getQueryStr(query)}` : endPoint,
+      {
+        headers: {
+          Authorization: cookies().has('token')
+            ? `Bearer ${cookies().get('token')?.value}`
+            : undefined,
+        },
+      }
+    )
 
     return data
   } catch (error) {

@@ -1,5 +1,5 @@
 import { z } from 'zod'
-import { courseSchema } from './course.schema'
+import { courseSchema, getCourseQuerySchema } from './course.schema'
 import { CoursePriceType } from './price/course.price.types'
 import { CourseScheduleType } from './schedules/course.schedule.types'
 
@@ -19,3 +19,4 @@ export type CoursesResType = {
   count: number
   courses: CourseType[]
 }
+export type GetCourseQueryType = z.infer<typeof getCourseQuerySchema>

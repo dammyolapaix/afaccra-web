@@ -43,3 +43,72 @@ export const getDifferingFields = <T extends object>(
 
   return differingFields
 }
+
+export const getQueryStr = <T extends object>(query: T): string => {
+  const queryStringParts: string[] = []
+
+  // Check if query is null or undefined
+  if (query === null || query === undefined) {
+    return ''
+  }
+
+  // Iterate over each key-value pair in the query object
+  for (const key in query) {
+    if (query.hasOwnProperty(key)) {
+      let value = query[key]
+
+      // Skip null or undefined values
+      if (value === null || value === undefined) {
+        continue
+      }
+
+      let encodedKey = encodeURIComponent(key) // Encode key component
+
+      // Handle array values
+      if (Array.isArray(value)) {
+        // Handle each array element
+        ;(value as any[]).forEach((val) => {
+          queryStringParts.push(
+            `${encodedKey}=${encodeURIComponent(val.toString())}`
+          )
+        })
+      } else if (typeof value === 'object') {
+        // Handle nested objects (not fully recursive, but handles immediate level)
+        for (const nestedKey in value) {
+          if (value.hasOwnProperty(nestedKey)) {
+            let nestedValue = value[nestedKey]
+            if (nestedValue !== null && nestedValue !== undefined) {
+              let encodedNestedKey = encodeURIComponent(`${key}.${nestedKey}`)
+              queryStringParts.push(
+                `${encodedNestedKey}=${encodeURIComponent(
+                  nestedValue.toString()
+                )}`
+              )
+            }
+          }
+        }
+      } else {
+        let encodedValue = encodeURIComponent(value.toString()) // Encode value component
+        queryStringParts.push(`${encodedKey}=${encodedValue}`)
+      }
+    }
+  }
+
+  // Join all parts with '&' to form the final query string
+  return queryStringParts.length > 0 ? `?${queryStringParts.join('&')}` : ''
+}
+
+export const timeToDate = (time: string): Date => {
+  // Assuming today's date as the reference
+  const today = new Date()
+
+  // Split the time string into hours, minutes, and seconds
+  const [hours, minutes, seconds] = time.split(':').map(Number)
+
+  // Set the time on today's date
+  today.setHours(hours)
+  today.setMinutes(minutes)
+  today.setSeconds(seconds)
+
+  return today
+}
