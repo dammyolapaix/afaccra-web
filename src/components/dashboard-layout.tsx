@@ -5,13 +5,9 @@ import {
   CircleUser,
   GraduationCap,
   Home,
-  LineChart,
   Menu,
-  Package,
   Package2,
   School,
-  ShoppingCart,
-  Users,
 } from 'lucide-react'
 
 import { Button } from '@/components/ui/button'
@@ -24,20 +20,108 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet'
-import { LocaleType } from '@/types'
+import { LocaleType, UserType } from '@/types'
 import { usePathname } from 'next/navigation'
 import { useEffect } from 'react'
+
+type PageType = {
+  href: string
+  name: string
+  icon: JSX.Element
+  iconLg: JSX.Element
+  active: boolean
+}
+
+const LargeScreenMenu = ({ pages }: { pages: PageType[] }) => {
+  return (
+    <>
+      {pages.map(({ active, href, icon, name }) => (
+        <Link
+          key={href}
+          href={href}
+          className={`flex items-center gap-3 rounded-lg px-3 py-2  transition-all hover:text-primary ${
+            active ? 'bg-muted text-primary' : 'text-muted-foreground'
+          }`}
+        >
+          {icon}
+          {name}
+        </Link>
+      ))}
+    </>
+  )
+}
+
+const SmallScreenMenu = ({ pages }: { pages: PageType[] }) => {
+  return (
+    <>
+      {pages.map(({ active, href, iconLg, name }) => (
+        <Link
+          key={href}
+          href={href}
+          className={`mx-[-0.65rem] flex items-center gap-4 rounded-xl px-3 py-2 hover:text-foreground ${
+            active ? 'bg-muted text-foreground' : 'text-muted-foreground'
+          }`}
+        >
+          {iconLg}
+          {name}
+        </Link>
+      ))}
+    </>
+  )
+}
 
 export default function DashboardLayout({
   children,
   locale,
+  authUser,
 }: Readonly<{
   children: React.ReactNode
   locale: LocaleType
+  authUser: UserType
 }>) {
   const pathname = usePathname()
 
-  const pages = [
+  const isAdmin =
+    authUser.roles.filter(({ role }) => role.name === 'admin').length > 0
+
+  const adminPages = [
+    {
+      href: locale.dashboardMenus.dashboard_href,
+      name: locale.dashboardMenus.dashboard,
+      icon: <Home className="h-4 w-4" />,
+      iconLg: <Home className="h-5 w-5" />,
+      active: pathname === locale.dashboardMenus.dashboard_href,
+    },
+    {
+      href: locale.dashboardMenus.courses_href,
+      name: locale.dashboardMenus.courses,
+      icon: <GraduationCap className="h-4 w-4" />,
+      iconLg: <GraduationCap className="h-5 w-5" />,
+      active:
+        pathname === locale.dashboardMenus.courses_href ||
+        pathname.includes(locale.dashboardMenus.courses_href),
+    },
+    {
+      href: locale.dashboardMenus.classes_href,
+      name: locale.dashboardMenus.classes,
+      icon: <School className="h-4 w-4" />,
+      iconLg: <School className="h-5 w-5" />,
+      active:
+        pathname === locale.dashboardMenus.classes_href ||
+        pathname.includes(locale.dashboardMenus.classes_href),
+    },
+    {
+      href: locale.dashboardMenus.classes_href,
+      name: 'Admin',
+      icon: <School className="h-4 w-4" />,
+      iconLg: <School className="h-5 w-5" />,
+      active:
+        pathname === locale.dashboardMenus.classes_href ||
+        pathname.includes(locale.dashboardMenus.classes_href),
+    },
+  ]
+
+  const studentPages = [
     {
       href: locale.dashboardMenus.dashboard_href,
       name: locale.dashboardMenus.dashboard,
@@ -79,18 +163,8 @@ export default function DashboardLayout({
           </div>
           <div className="flex-1">
             <nav className="grid items-start px-2 text-sm font-medium lg:px-4">
-              {pages.map(({ active, href, icon, name }) => (
-                <Link
-                  key={href}
-                  href={href}
-                  className={`flex items-center gap-3 rounded-lg px-3 py-2  transition-all hover:text-primary ${
-                    active ? 'bg-muted text-primary' : 'text-muted-foreground'
-                  }`}
-                >
-                  {icon}
-                  {name}
-                </Link>
-              ))}
+              {isAdmin && <LargeScreenMenu pages={adminPages} />}
+              {!isAdmin && <LargeScreenMenu pages={studentPages} />}
             </nav>
           </div>
         </div>
@@ -118,20 +192,8 @@ export default function DashboardLayout({
                   <span className="sr-only">Acme Inc</span>
                 </Link>
 
-                {pages.map(({ active, href, iconLg, name }) => (
-                  <Link
-                    key={href}
-                    href={href}
-                    className={`mx-[-0.65rem] flex items-center gap-4 rounded-xl px-3 py-2 hover:text-foreground ${
-                      active
-                        ? 'bg-muted text-foreground'
-                        : 'text-muted-foreground'
-                    }`}
-                  >
-                    {iconLg}
-                    {name}
-                  </Link>
-                ))}
+                {isAdmin && <SmallScreenMenu pages={adminPages} />}
+                {!isAdmin && <SmallScreenMenu pages={studentPages} />}
               </nav>
             </SheetContent>
           </Sheet>

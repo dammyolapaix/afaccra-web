@@ -1,5 +1,7 @@
+import { getAuthUser } from '@/app/utils'
 import DashboardLayout from '@/components/dashboard-layout'
 import { getLocale } from '@/locales'
+import { UserType } from '@/types'
 
 export default async function Layout({
   children,
@@ -10,5 +12,11 @@ export default async function Layout({
 }>) {
   const locale = await getLocale(lang)
 
-  return <DashboardLayout locale={locale}>{children}</DashboardLayout>
+  const authUser = (await getAuthUser()) as UserType
+
+  return (
+    <DashboardLayout locale={locale} authUser={authUser}>
+      {children}
+    </DashboardLayout>
+  )
 }

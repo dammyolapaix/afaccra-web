@@ -29,7 +29,7 @@ export type UserType = {
   email: string
   provider: 'email' | 'google' | 'facebook'
   providerId: string | null
-  role: {
+  roles: {
     role: {
       id: string
       name: 'admin' | 'staff' | 'instructor' | 'student'
