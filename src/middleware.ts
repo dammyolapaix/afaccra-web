@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { match } from '@formatjs/intl-localematcher'
 import Negotiator from 'negotiator'
+import { cookies } from 'next/headers'
 
 let locales = ['en', 'fr']
 let defaultLocale = 'en'
@@ -11,7 +12,17 @@ function getLocale(request: NextRequest) {
   let headers = { 'accept-language': acceptedLanguage }
   let languages = new Negotiator({ headers }).languages()
 
-  return match(languages, locales, defaultLocale) // -> 'en-US'
+  /**
+   * Language selection order
+   *
+   * 1. Check if the user has a preferred lang set in the cookie if not use #2
+   * 2. The user browser language
+   */
+  const language = cookies().has('lang')
+    ? cookies().get('lang')?.value
+    : match(languages, locales, defaultLocale)
+
+  return language
 }
 
 export function middleware(request: NextRequest) {

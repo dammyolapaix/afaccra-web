@@ -8,8 +8,8 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
 import { useParams, usePathname } from 'next/navigation'
-import Link from 'next/link'
 import { LocaleType } from '@/types'
+import { toggleLanguageAction } from '@/app/[lang]/actions'
 
 export function LanguageToggle({
   locale: { utils: locale_utils },
@@ -20,8 +20,7 @@ export function LanguageToggle({
 
   const path = usePathname()
 
-  const currentPath =
-    lang === 'fr' ? path.split('/fr')[1] : path.split('/en')[1]
+  const pathname = lang === 'fr' ? path.split('/fr')[1] : path.split('/en')[1]
 
   const franceFlag = (
     <svg
@@ -125,19 +124,23 @@ export function LanguageToggle({
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
-        <DropdownMenuItem>
-          <Link href={`/en${currentPath}`}>
-            <span className="flex justify-between items-center gap-5">
-              {ukFlag} {locale_utils.english}
-            </span>
-          </Link>
+        <DropdownMenuItem
+          onClick={async () =>
+            await toggleLanguageAction({ lang: 'en', pathname })
+          }
+        >
+          <span className="flex justify-between items-center gap-5">
+            {ukFlag} {locale_utils.english}
+          </span>
         </DropdownMenuItem>
-        <DropdownMenuItem>
-          <Link href={`/fr${currentPath}`}>
-            <span className="flex justify-between items-center gap-5">
-              {franceFlag} {locale_utils.french}
-            </span>
-          </Link>
+        <DropdownMenuItem
+          onClick={async () =>
+            await toggleLanguageAction({ lang: 'fr', pathname })
+          }
+        >
+          <span className="flex justify-between items-center gap-5">
+            {franceFlag} {locale_utils.french}
+          </span>
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
