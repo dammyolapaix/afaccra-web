@@ -23,11 +23,11 @@ function classNames(...classes: string[]) {
 }
 
 export default function Navbar({
-  hasAuthToken,
+  userIsAuth,
   locale,
 }: {
   locale: LocaleType
-  hasAuthToken: boolean
+  userIsAuth: boolean
 }) {
   const pathname = usePathname()
 
@@ -115,7 +115,7 @@ export default function Navbar({
               </div>
               <div className="absolute inset-y-0 right-0 flex items-center justify-between pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
                 {/* Profile dropdown */}
-                {hasAuthToken ? (
+                {userIsAuth ? (
                   <Menu as="div" className="relative ml-3">
                     <div>
                       <MenuButton className="relative flex rounded-full  text-sm focus:outline-none">
