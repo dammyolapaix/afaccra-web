@@ -10,6 +10,7 @@ import Link from 'next/link'
 import { MoreHorizontal } from 'lucide-react'
 import { EDIT_COURSE_ROUTE, SINGLE_COURSE_ROUTE } from '../course.routes'
 import { Button } from '@/components/ui/button'
+import { LocaleType } from '@/types'
 
 export default function CoursesTableItem({
   course: {
@@ -21,23 +22,44 @@ export default function CoursesTableItem({
     isPublished,
     audience,
   },
+  locale: {
+    utils: locale_utils,
+    pages: {
+      dashboard: {
+        courses: { actions: locale_actions },
+      },
+    },
+  },
+  lang,
 }: {
   course: CourseType
+  locale: LocaleType
+  lang: 'en' | 'fr'
 }) {
   return (
     <TableRow>
-      <TableCell className="font-medium">{titleEn}</TableCell>
+      <TableCell className="font-medium">
+        {lang === 'fr' && titleFr ? titleFr : titleEn}
+      </TableCell>
       <TableCell className="hidden sm:table-cell">
-        {language ? language : '-'}
+        {language
+          ? language === 'english'
+            ? locale_utils.english
+            : locale_utils.french
+          : '-'}
       </TableCell>
       <TableCell className="hidden sm:table-cell">
         {deliveryMode ? deliveryMode : '-'}
       </TableCell>
       <TableCell className="hidden sm:table-cell">
-        {audience ? audience : '-'}
+        {audience
+          ? audience === 'adults'
+            ? locale_utils.adults
+            : locale_utils.kids
+          : '-'}
       </TableCell>
       <TableCell className="hidden sm:table-cell">
-        {isPublished ? 'published' : 'draft'}
+        {isPublished ? locale_utils.published : locale_utils.draft}
       </TableCell>
       <TableCell className="hidden sm:table-cell">
         <DropdownMenu>
@@ -49,10 +71,14 @@ export default function CoursesTableItem({
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
             <DropdownMenuItem asChild className="cursor-pointer">
-              <Link href={SINGLE_COURSE_ROUTE(id)}>View Course</Link>
+              <Link href={SINGLE_COURSE_ROUTE(id)}>
+                {locale_actions.view_course}
+              </Link>
             </DropdownMenuItem>
             <DropdownMenuItem asChild className="cursor-pointer">
-              <Link href={EDIT_COURSE_ROUTE(id)}>Edit Course</Link>
+              <Link href={EDIT_COURSE_ROUTE(id)}>
+                {locale_actions.edit_course}
+              </Link>
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>

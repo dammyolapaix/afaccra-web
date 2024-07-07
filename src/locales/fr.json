@@ -16,5 +16,43 @@
     "courses_href": "/fr/dashboard/courses",
     "classes": "Classes",
     "classes_href": "/fr/dashboard/classes"
+  },
+  "pages": {
+    "dashboard": {
+      "home": {},
+      "courses": {
+        "actions": {
+          "add_course": "Ajouter un cours",
+          "view_course": "Voir le cours",
+          "edit_course": "Modifier le cours",
+          "update_course": "Mettre à jour le cours"
+        },
+        "page": {
+          "home": {
+            "table": {
+              "title": "Cours",
+              "description": "Votre liste de cours.",
+              "table_heading": {
+                "title": "Titre de cours",
+                "language": "langue",
+                "delivery_mode": "Mode de livraison",
+                "audience": "Public",
+                "status": "Statut",
+                "actions": "Actions"
+              }
+            }
+          }
+        }
+      }
+    },
+    "marketing": {}
+  },
+  "utils": {
+    "english": "Anglais",
+    "french": "Français",
+    "adults": "adultes",
+    "kids": "enfants",
+    "draft": "brouillon",
+    "published": "publié"
   }
 }

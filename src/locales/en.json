@@ -1,20 +1,58 @@
 {
   "navbar": {
     "home": "Home",
-    "home_href": "/en",
+    "home_href": "/",
     "courses": "Courses",
-    "courses_href": "/en/courses",
+    "courses_href": "/courses",
     "login": "Login",
-    "login_href": "/en/login",
+    "login_href": "/login",
     "register": "Register",
-    "register_href": "/en/register"
+    "register_href": "/register"
   },
   "dashboardMenus": {
     "dashboard": "Dashboard",
-    "dashboard_href": "/en/dashboard",
+    "dashboard_href": "/dashboard",
     "courses": "Courses",
-    "courses_href": "/en/dashboard/courses",
+    "courses_href": "/dashboard/courses",
     "classes": "Classes",
-    "classes_href": "/en/dashboard/classes"
+    "classes_href": "/dashboard/classes"
+  },
+  "pages": {
+    "dashboard": {
+      "home": {},
+      "courses": {
+        "actions": {
+          "add_course": "Add Course",
+          "view_course": "View Course",
+          "edit_course": "Edit Course",
+          "update_course": "Update Course"
+        },
+        "page": {
+          "home": {
+            "table": {
+              "title": "Courses",
+              "description": "Your courses list.",
+              "table_heading": {
+                "title": "Course title",
+                "language": "language",
+                "delivery_mode": "Delivery Mode",
+                "audience": "Audience",
+                "status": "Status",
+                "actions": "Actions"
+              }
+            }
+          }
+        }
+      }
+    },
+    "marketing": {}
+  },
+  "utils": {
+    "english": "English",
+    "french": "French",
+    "adults": "adults",
+    "kids": "kids",
+    "draft": "draft",
+    "published": "published"
   }
 }
