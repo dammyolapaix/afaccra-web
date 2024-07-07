@@ -125,6 +125,7 @@ export function LanguageToggle({
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
         <DropdownMenuItem
+          className="cursor-pointer"
           onClick={async () =>
             await toggleLanguageAction({ lang: 'en', pathname })
           }
@@ -134,6 +135,7 @@ export function LanguageToggle({
           </span>
         </DropdownMenuItem>
         <DropdownMenuItem
+          className="cursor-pointer"
           onClick={async () =>
             await toggleLanguageAction({ lang: 'fr', pathname })
           }
