@@ -14,11 +14,21 @@ import { Button } from '@/components/ui/button'
 import { CourseResType, CourseType } from '../course.types'
 import { useState } from 'react'
 import { updateCourseAction } from '../course.actions'
-import { ErrorResType } from '@/types'
+import { ErrorResType, LocaleType } from '@/types'
 import { toast } from 'react-toastify'
 import { Loader2, Rss } from 'lucide-react'
 
-export function CoursePublishModal({ course }: { course: CourseType }) {
+export function CoursePublishModal({
+  course,
+  locale: {
+    pages: {
+      dashboard: { courses: locale_course },
+    },
+  },
+}: {
+  course: CourseType
+  locale: LocaleType
+}) {
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const [dialogIsOpen, setDialogIsOpen] = useState<boolean>(false)
 
@@ -59,7 +69,9 @@ export function CoursePublishModal({ course }: { course: CourseType }) {
         <Button variant="outline" className="gap-1 text-sm">
           <Rss className="h-3.5 w-3.5" />
           <span className="sr-only sm:not-sr-only">
-            {course.isPublished ? 'Unpublish' : 'Publish'} Course
+            {course.isPublished
+              ? locale_course.actions.unpublish_course
+              : locale_course.actions.publish_course}
           </span>
         </Button>
       </AlertDialogTrigger>
@@ -83,11 +95,16 @@ export function CoursePublishModal({ course }: { course: CourseType }) {
             {isLoading ? (
               <>
                 <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                {course.isPublished ? 'Unpublish' : 'Publish'}
-                ... Course
+                {course.isPublished
+                  ? locale_course.actions.unpublish_course
+                  : locale_course.actions.publish_course}
               </>
             ) : (
-              <>{course.isPublished ? 'Unpublish' : 'Publish'} Course</>
+              <>
+                {course.isPublished
+                  ? locale_course.actions.unpublish_course
+                  : locale_course.actions.publish_course}
+              </>
             )}
           </Button>
         </AlertDialogFooter>

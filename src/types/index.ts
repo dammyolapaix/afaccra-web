@@ -26,23 +26,27 @@ export type LocaleType = {
           view_course: string
           edit_course: string
           update_course: string
+          publish_course: string
+          unpublish_course: string
         }
-        page: {
-          home: {
-            table: {
-              title: string
-              description: string
-              table_heading: {
-                title: string
-                language: string
-                delivery_mode: string
-                audience: string
-                status: string
-                actions: string
-              }
-            }
-          }
-        }
+        table_title: string
+        table_description: string
+        table_actions: string
+        course_title: string
+        course_details: string
+        course_price: string
+        course_schedule: string
+        language: string
+        days: string
+        delivery_mode: string
+        audience: string
+        status: string
+        title_en: string
+        title_fr: string
+        objective_en: string
+        objective_fr: string
+        curriculum_en: string
+        curriculum_fr: string
       }
       marketing: {}
     }
@@ -57,6 +61,13 @@ export type LocaleType = {
     light: string
     dark: string
     system: string
+    sundays: string
+    mondays: string
+    tuesdays: string
+    wednesdays: string
+    thursdays: string
+    fridays: string
+    saturdays: string
   }
 }
 

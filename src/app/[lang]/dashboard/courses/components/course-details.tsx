@@ -2,54 +2,99 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { CourseType } from '../course.types'
 import { Label } from '@/components/ui/label'
 import { Input } from '@/components/ui/input'
-import { format } from 'date-fns'
 import { marked } from 'marked'
+import { LocaleType } from '@/types'
 
 export default function CourseDetails({
   course: {
     titleEn,
     titleFr,
     days,
-    id,
     audience,
-    curriculum,
     deliveryMode,
-    durationPeriod,
-    durationValue,
-    endDate,
-    endTime,
     language,
     objective,
-    startDate,
-    startTime,
   },
+  locale: {
+    utils: locale_utils,
+    pages: {
+      dashboard: { courses: locale_course },
+    },
+  },
+  lang,
 }: {
   course: CourseType
+  locale: LocaleType
+  lang: 'en' | 'fr'
 }) {
+  const getCourseLocaleDays = () => {
+    let locale_days: string[] = []
+
+    days.map((day) => {
+      switch (day) {
+        case 'sundays':
+          locale_days = [...locale_days, locale_utils.sundays]
+          break
+        case 'mondays':
+          locale_days = [...locale_days, locale_utils.mondays]
+          break
+        case 'tuesdays':
+          locale_days = [...locale_days, locale_utils.tuesdays]
+          break
+        case 'wednesdays':
+          locale_days = [...locale_days, locale_utils.wednesdays]
+          break
+        case 'thursdays':
+          locale_days = [...locale_days, locale_utils.thursdays]
+          break
+        case 'fridays':
+          locale_days = [...locale_days, locale_utils.fridays]
+          break
+        case 'saturdays':
+          locale_days = [...locale_days, locale_utils.saturdays]
+          break
+        default:
+          break
+      }
+    })
+
+    return locale_days
+  }
+
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Course Details</CardTitle>
+        <CardTitle>{locale_course.course_details}</CardTitle>
       </CardHeader>
 
       <CardContent>
         <div className="grid gap-5 grid-cols-1 md:grid-cols-2 mb-5">
           <div className="w-full">
-            <Label>Title (English)</Label>
+            <Label>{locale_course.title_en}</Label>
             <Input disabled value={titleEn ? titleEn : ''} className="mt-3" />
           </div>
           <div className="w-full">
-            <Label>Title (French)</Label>
+            <Label>{locale_course.title_fr}</Label>
             <Input disabled value={titleFr ? titleFr : ''} className="mt-3" />
           </div>
         </div>
         <div className="grid gap-5 grid-cols-1 md:grid-cols-2 mb-5">
           <div className="w-full">
-            <Label>Language</Label>
-            <Input disabled value={language ? language : ''} className="mt-3" />
+            <Label>{locale_course.language}</Label>
+            <Input
+              disabled
+              value={
+                language
+                  ? language === 'english'
+                    ? locale_utils.english
+                    : locale_utils.french
+                  : '-'
+              }
+              className="mt-3"
+            />
           </div>
           <div className="w-full">
-            <Label>Delivery Mode</Label>
+            <Label>{locale_course.delivery_mode}</Label>
             <Input
               disabled
               value={deliveryMode ? deliveryMode : ''}
@@ -59,71 +104,35 @@ export default function CourseDetails({
         </div>
         <div className="grid gap-5 grid-cols-1 md:grid-cols-2 mb-5">
           <div className="w-full">
-            <Label>Days</Label>
+            <Label>{locale_course.days}</Label>
+            <div className="mt-3 flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50">
+              {days
+                ? getCourseLocaleDays().map((day) => (
+                    <span key={day} className="mr-2">
+                      {day}
+                    </span>
+                  ))
+                : ''}
+            </div>
+          </div>
+          <div className="w-full">
+            <Label>{locale_course.audience}</Label>
             <Input
               disabled
-              value={days ? days.toString() : ''}
-              className="mt-3"
-            />
-          </div>
-          <div className="w-full">
-            <Label>Audience</Label>
-            <Input disabled value={audience ? audience : ''} className="mt-3" />
-          </div>
-        </div>
-        <div className="grid gap-5 grid-cols-1 md:grid-cols-2 mb-5">
-          <div className="w-full">
-            <Label>Start Time</Label>
-            <Input
-              disabled
-              value={startTime ? startTime : ''}
-              className="mt-3"
-            />
-          </div>
-          <div className="w-full">
-            <Label>Audience</Label>
-            <Input disabled value={endTime ? endTime : ''} className="mt-3" />
-          </div>
-        </div>
-        <div className="grid gap-5 grid-cols-1 md:grid-cols-2 mb-5">
-          <div className="w-full">
-            <Label>Duration value</Label>
-            <Input
-              disabled
-              value={durationValue ? durationValue : ''}
-              className="mt-3"
-            />
-          </div>
-          <div className="w-full">
-            <Label>Duration Period</Label>
-            <Input
-              disabled
-              value={durationPeriod ? durationPeriod : ''}
+              value={
+                audience
+                  ? audience === 'adults'
+                    ? locale_utils.adults
+                    : locale_utils.kids
+                  : '-'
+              }
               className="mt-3"
             />
           </div>
         </div>
         <div className="grid gap-5 grid-cols-1 md:grid-cols-2 mb-5">
           <div className="w-full">
-            <Label>Start date</Label>
-            <Input
-              disabled
-              value={startDate ? format(startDate, 'PPP') : ''}
-              className="mt-3"
-            />
-          </div>
-          <div className="w-full">
-            <Label>End date</Label>
-            <Input
-              disabled
-              value={endDate ? format(endDate, 'PPP') : ''}
-              className="mt-3"
-            />
-          </div>
-        </div>
-        <div className="grid gap-5 grid-cols-1 md:grid-cols-2 mb-5">
-          <div className="w-full">
-            <Label>Objective</Label>
+            <Label>{locale_course.objective_en}</Label>
             <div
               className="markdown my-10"
               dangerouslySetInnerHTML={{
@@ -132,11 +141,31 @@ export default function CourseDetails({
             />
           </div>
           <div className="w-full">
-            <Label>Curriculum</Label>
+            <Label>{locale_course.objective_fr}</Label>
             <div
               className="markdown my-10"
               dangerouslySetInnerHTML={{
-                __html: marked(curriculum ? curriculum : ''),
+                __html: marked(objective ? objective : ''),
+              }}
+            />
+          </div>
+        </div>
+        <div className="grid gap-5 grid-cols-1 md:grid-cols-2 mb-5">
+          <div className="w-full">
+            <Label>{locale_course.curriculum_en}</Label>
+            <div
+              className="markdown my-10"
+              dangerouslySetInnerHTML={{
+                __html: marked(objective ? objective : ''),
+              }}
+            />
+          </div>
+          <div className="w-full">
+            <Label>{locale_course.curriculum_fr}</Label>
+            <div
+              className="markdown my-10"
+              dangerouslySetInnerHTML={{
+                __html: marked(objective ? objective : ''),
               }}
             />
           </div>

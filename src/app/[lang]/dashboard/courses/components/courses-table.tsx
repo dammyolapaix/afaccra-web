@@ -34,14 +34,7 @@ export default function CoursesTable({
 }) {
   const {
     pages: {
-      dashboard: {
-        courses: {
-          actions: locale_actions,
-          page: {
-            home: { table: locale_table },
-          },
-        },
-      },
+      dashboard: { courses: locale_course },
     },
   } = locale
 
@@ -53,7 +46,7 @@ export default function CoursesTable({
             <Link href={ADD_COURSE_ROUTE}>
               <Plus className="h-3.5 w-3.5" />
               <span className="sr-only sm:not-sr-only">
-                {locale_actions.add_course}
+                {locale_course.actions.add_course}
               </span>
             </Link>
           </Button>
@@ -63,29 +56,29 @@ export default function CoursesTable({
         <Card>
           <CardHeader className="px-7">
             <CardTitle>
-              {locale_table.title} ({count})
+              {locale_course.table_title} ({count})
             </CardTitle>
-            <CardDescription>{locale_table.description}</CardDescription>
+            <CardDescription>{locale_course.table_description}</CardDescription>
           </CardHeader>
           <CardContent>
             <Table>
               <TableHeader>
                 <TableRow>
-                  <TableHead>{locale_table.table_heading.title}</TableHead>
+                  <TableHead>{locale_course.course_title}</TableHead>
                   <TableHead className="hidden sm:table-cell">
-                    {locale_table.table_heading.language}
+                    {locale_course.language}
                   </TableHead>
                   <TableHead className="hidden sm:table-cell">
-                    {locale_table.table_heading.delivery_mode}
+                    {locale_course.delivery_mode}
                   </TableHead>
                   <TableHead className="hidden sm:table-cell">
-                    {locale_table.table_heading.audience}
+                    {locale_course.audience}
                   </TableHead>
                   <TableHead className="hidden sm:table-cell">
-                    {locale_table.table_heading.status}
+                    {locale_course.status}
                   </TableHead>
                   <TableHead className="hidden sm:table-cell">
-                    {locale_table.table_heading.actions}
+                    {locale_course.table_actions}
                   </TableHead>
                 </TableRow>
               </TableHeader>

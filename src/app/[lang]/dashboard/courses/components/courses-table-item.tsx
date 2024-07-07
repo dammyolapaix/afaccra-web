@@ -25,9 +25,7 @@ export default function CoursesTableItem({
   locale: {
     utils: locale_utils,
     pages: {
-      dashboard: {
-        courses: { actions: locale_actions },
-      },
+      dashboard: { courses: locale_course },
     },
   },
   lang,
@@ -72,12 +70,12 @@ export default function CoursesTableItem({
           <DropdownMenuContent align="end">
             <DropdownMenuItem asChild className="cursor-pointer">
               <Link href={SINGLE_COURSE_ROUTE(id)}>
-                {locale_actions.view_course}
+                {locale_course.actions.view_course}
               </Link>
             </DropdownMenuItem>
             <DropdownMenuItem asChild className="cursor-pointer">
               <Link href={EDIT_COURSE_ROUTE(id)}>
-                {locale_actions.edit_course}
+                {locale_course.actions.edit_course}
               </Link>
             </DropdownMenuItem>
           </DropdownMenuContent>

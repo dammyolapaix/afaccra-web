@@ -25,24 +25,28 @@
           "add_course": "Ajouter un cours",
           "view_course": "Voir le cours",
           "edit_course": "Modifier le cours",
-          "update_course": "Mettre à jour le cours"
+          "update_course": "Mettre à jour le cours",
+          "publish_course": "Publier le cours",
+          "unpublish_course": "Annuler la publication du cours"
         },
-        "page": {
-          "home": {
-            "table": {
-              "title": "Cours",
-              "description": "Votre liste de cours.",
-              "table_heading": {
-                "title": "Titre de cours",
-                "language": "langue",
-                "delivery_mode": "Mode de livraison",
-                "audience": "Public",
-                "status": "Statut",
-                "actions": "Actions"
-              }
-            }
-          }
-        }
+        "table_title": "Cours",
+        "table_description": "Votre liste de cours.",
+        "table_actions": "Actions",
+        "course_title": "Titre de cours",
+        "course_details": "Détails du cours",
+        "course_price": "Prix ​​du cours",
+        "course_schedule": "Calendrier des cours",
+        "language": "langue",
+        "days": "Jours",
+        "delivery_mode": "Mode de livraison",
+        "audience": "Public",
+        "status": "Statut",
+        "title_en": "Titre (Anglais)",
+        "title_fr": "Titre (Français)",
+        "objective_en": "Objectif (Anglais)",
+        "objective_fr": "Objectif (Français)",
+        "curriculum_en": "Programme d'études (Anglais)",
+        "curriculum_fr": "Programme d'études (Français)"
       }
     },
     "marketing": {}
@@ -56,6 +60,13 @@
     "published": "publié",
     "light": "Lumière",
     "dark": "Sombre",
-    "system": "Système"
+    "system": "Système",
+    "sundays": "les dimanches",
+    "mondays": "les lundis",
+    "tuesdays": "les mardis",
+    "wednesdays": "les mercredis",
+    "thursdays": "les jeudis",
+    "fridays": "les vendredis",
+    "saturdays": "les samedis"
   }
 }

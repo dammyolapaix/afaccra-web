@@ -25,24 +25,28 @@
           "add_course": "Add Course",
           "view_course": "View Course",
           "edit_course": "Edit Course",
-          "update_course": "Update Course"
+          "update_course": "Update Course",
+          "publish_course": "Publish Course",
+          "unpublish_course": "Unpublish Course"
         },
-        "page": {
-          "home": {
-            "table": {
-              "title": "Courses",
-              "description": "Your courses list.",
-              "table_heading": {
-                "title": "Course title",
-                "language": "language",
-                "delivery_mode": "Delivery Mode",
-                "audience": "Audience",
-                "status": "Status",
-                "actions": "Actions"
-              }
-            }
-          }
-        }
+        "table_title": "Courses",
+        "table_description": "Your courses list.",
+        "table_actions": "Actions",
+        "course_title": "Course title",
+        "course_details": "Course Details",
+        "course_price": "Course Price",
+        "course_schedule": "Course Schedule",
+        "language": "Language",
+        "days": "Days",
+        "delivery_mode": "Delivery Mode",
+        "audience": "Audience",
+        "status": "Status",
+        "title_en": "Title (English)",
+        "title_fr": "Title (French)",
+        "objective_en": "Objective (English)",
+        "objective_fr": "Objective (French)",
+        "curriculum_en": "Curriculum (English)",
+        "curriculum_fr": "Curriculum (French)"
       }
     },
     "marketing": {}
@@ -56,6 +60,13 @@
     "published": "published",
     "light": "Light",
     "dark": "Dark",
-    "system": "System"
+    "system": "System",
+    "sundays": "sundays",
+    "mondays": "mondays",
+    "tuesdays": "tuesdays",
+    "wednesdays": "wednesdays",
+    "thursdays": "thursdays",
+    "fridays": "fridays",
+    "saturdays": "saturdays"
   }
 }
