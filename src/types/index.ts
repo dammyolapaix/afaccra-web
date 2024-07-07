@@ -23,3 +23,17 @@ export type ErrorResType = {
   success: false
   errors: { message: string }[]
 }
+
+export type UserType = {
+  id: string
+  email: string
+  provider: 'email' | 'google' | 'facebook'
+  providerId: string | null
+  role: {
+    role: {
+      id: string
+      name: 'admin' | 'staff' | 'instructor' | 'student'
+      description: string | null
+    }
+  }[]
+}

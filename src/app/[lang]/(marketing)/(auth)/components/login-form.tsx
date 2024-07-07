@@ -24,12 +24,10 @@ import { login } from '../auth.services'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { useRouter } from 'next/navigation'
 import { toast } from 'react-toastify'
+import { authSessionAction } from '../auth.actions'
 
 export default function LoginForm() {
-  const router = useRouter()
-
   const [isLoading, setIsLoading] = useState<boolean>(false)
 
   const form = useForm<LoginInputType>({
@@ -46,11 +44,12 @@ export default function LoginForm() {
       if (!res.success)
         for (const error of res.errors) toast.error(error.message)
 
-      if (res.success) router.push('/')
+      if (res.success) await authSessionAction({ user: res.user })
     } catch (error) {
       console.log(error)
     }
   }
+
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
