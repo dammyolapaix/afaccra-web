@@ -23,6 +23,8 @@ import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet'
 import { LocaleType, UserType } from '@/types'
 import { usePathname } from 'next/navigation'
 import { useEffect } from 'react'
+import { ModeToggle } from './mode-toggle'
+import { LanguageToggle } from './language-toggle'
 
 type PageType = {
   href: string
@@ -198,6 +200,8 @@ export default function DashboardLayout({
             </SheetContent>
           </Sheet>
           <div className="w-full flex-1"></div>
+          <LanguageToggle locale={locale} />
+          <ModeToggle locale={locale} />
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button variant="secondary" size="icon" className="rounded-full">

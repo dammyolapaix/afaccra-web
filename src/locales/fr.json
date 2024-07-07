@@ -53,6 +53,9 @@
     "adults": "adultes",
     "kids": "enfants",
     "draft": "brouillon",
-    "published": "publié"
+    "published": "publié",
+    "light": "Lumière",
+    "dark": "Sombre",
+    "system": "Système"
   }
 }

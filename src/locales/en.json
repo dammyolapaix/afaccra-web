@@ -53,6 +53,9 @@
     "adults": "adults",
     "kids": "kids",
     "draft": "draft",
-    "published": "published"
+    "published": "published",
+    "light": "Light",
+    "dark": "Dark",
+    "system": "System"
   }
 }

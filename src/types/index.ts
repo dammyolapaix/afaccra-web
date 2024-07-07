@@ -17,6 +17,47 @@ export type LocaleType = {
     classes: string
     classes_href: string
   }
+  pages: {
+    dashboard: {
+      home: {}
+      courses: {
+        actions: {
+          add_course: string
+          view_course: string
+          edit_course: string
+          update_course: string
+        }
+        page: {
+          home: {
+            table: {
+              title: string
+              description: string
+              table_heading: {
+                title: string
+                language: string
+                delivery_mode: string
+                audience: string
+                status: string
+                actions: string
+              }
+            }
+          }
+        }
+      }
+      marketing: {}
+    }
+  }
+  utils: {
+    english: string
+    french: string
+    adults: string
+    kids: string
+    draft: string
+    published: string
+    light: string
+    dark: string
+    system: string
+  }
 }
 
 export type ErrorResType = {

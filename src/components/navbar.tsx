@@ -17,6 +17,7 @@ import { usePathname } from 'next/navigation'
 import { LocaleType } from '@/types'
 import { ModeToggle } from './mode-toggle'
 import { Button } from './ui/button'
+import { LanguageToggle } from './language-toggle'
 
 function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(' ')
@@ -114,6 +115,9 @@ export default function Navbar({
                 </div>
               </div>
               <div className="absolute inset-y-0 right-0 flex items-center justify-between pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
+                <LanguageToggle locale={locale} />
+                <ModeToggle locale={locale} />
+
                 {/* Profile dropdown */}
                 {userIsAuth ? (
                   <Menu as="div" className="relative ml-3">
@@ -172,10 +176,6 @@ export default function Navbar({
                       ))}
                   </div>
                 )}
-
-                <div className="relative ml-3">
-                  <ModeToggle />
-                </div>
               </div>
             </div>
           </div>
