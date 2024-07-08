@@ -23,6 +23,9 @@ export type LocaleType = {
       courses: {
         actions: {
           add_course: string
+          add_new_course: string
+          add_new_course_description: string
+          edit_course_description: string
           view_course: string
           edit_course: string
           update_course: string
@@ -68,6 +71,10 @@ export type LocaleType = {
     thursdays: string
     fridays: string
     saturdays: string
+    enter: string
+    select: string
+    'in-person': 'in-person'
+    online: 'Online'
   }
 }
 

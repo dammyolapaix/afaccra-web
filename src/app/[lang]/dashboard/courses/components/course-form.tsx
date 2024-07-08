@@ -51,9 +51,27 @@ import { toast } from 'react-toastify'
 import { useRouter } from 'next/navigation'
 import { ALL_COURSES_ROUTE } from '../course.routes'
 import Editor from '@/components/editor'
-import { ErrorResType } from '@/types'
+import { ErrorResType, LocaleType } from '@/types'
+import {
+  getCourseLocaleAudience,
+  getCourseLocaleDay,
+  getCourseLocaleDeliveryMode,
+} from '../course.utils'
 
-export default function CourseForm({ course }: { course?: CourseType }) {
+export default function CourseForm({
+  course,
+  locale,
+}: {
+  course?: CourseType
+  locale: LocaleType
+}) {
+  const {
+    utils: locale_utils,
+    pages: {
+      dashboard: { courses: locale_course },
+    },
+  } = locale
+
   const router = useRouter()
   const [isLoading, setIsLoading] = useState<boolean>(false)
 
@@ -113,10 +131,16 @@ export default function CourseForm({ course }: { course?: CourseType }) {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Add New Course</CardTitle>
+        <CardTitle>
+          {course
+            ? locale_course.actions.update_course
+            : locale_course.actions.add_new_course}
+        </CardTitle>
 
         <CardDescription>
-          Enter the course information to add a new course
+          {course
+            ? locale_course.actions.edit_course_description
+            : locale_course.actions.add_new_course_description}
         </CardDescription>
       </CardHeader>
 
@@ -129,9 +153,12 @@ export default function CourseForm({ course }: { course?: CourseType }) {
                 name="titleEn"
                 render={({ field }) => (
                   <FormItem className="w-full">
-                    <FormLabel>Title (English)</FormLabel>
+                    <FormLabel>{locale_course.title_en}</FormLabel>
                     <FormControl>
-                      <Input {...field} placeholder="Enter Title (English)" />
+                      <Input
+                        {...field}
+                        placeholder={`${locale_utils.enter} ${locale_course.title_en}`}
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -143,9 +170,12 @@ export default function CourseForm({ course }: { course?: CourseType }) {
                 name="titleFr"
                 render={({ field }) => (
                   <FormItem className="w-full">
-                    <FormLabel>Title (French)</FormLabel>
+                    <FormLabel>{locale_course.title_fr}</FormLabel>
                     <FormControl>
-                      <Input {...field} placeholder="Enter Title (French)" />
+                      <Input
+                        {...field}
+                        placeholder={`${locale_utils.enter} ${locale_course.title_fr}`}
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -159,14 +189,16 @@ export default function CourseForm({ course }: { course?: CourseType }) {
                 name="language"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Language</FormLabel>
+                    <FormLabel>{locale_course.language}</FormLabel>
                     <Select
                       onValueChange={field.onChange}
                       defaultValue={field.value}
                     >
                       <FormControl>
                         <SelectTrigger>
-                          <SelectValue placeholder="Select Language" />
+                          <SelectValue
+                            placeholder={`${locale_utils.select} ${locale_course.language}`}
+                          />
                         </SelectTrigger>
                       </FormControl>
                       <SelectContent>
@@ -186,20 +218,22 @@ export default function CourseForm({ course }: { course?: CourseType }) {
                 name="deliveryMode"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Delivery Mode</FormLabel>
+                    <FormLabel>{locale_course.delivery_mode}</FormLabel>
                     <Select
                       onValueChange={field.onChange}
                       defaultValue={field.value}
                     >
                       <FormControl>
                         <SelectTrigger>
-                          <SelectValue placeholder="Select Delivery Mode" />
+                          <SelectValue
+                            placeholder={`${locale_utils.select} ${locale_course.delivery_mode}`}
+                          />
                         </SelectTrigger>
                       </FormControl>
                       <SelectContent>
                         {courseDeliveryModeEnum.map((mode) => (
                           <SelectItem value={mode} key={mode}>
-                            {mode}
+                            {getCourseLocaleDeliveryMode({ mode, locale })}
                           </SelectItem>
                         ))}
                       </SelectContent>
@@ -217,7 +251,9 @@ export default function CourseForm({ course }: { course?: CourseType }) {
                 render={() => (
                   <FormItem>
                     <div className="mb-4">
-                      <FormLabel className="text-base">Days</FormLabel>
+                      <FormLabel className="text-base">
+                        {locale_course.days}
+                      </FormLabel>
                     </div>
                     {courseDaysEnum.map((item) => (
                       <FormField
@@ -245,7 +281,7 @@ export default function CourseForm({ course }: { course?: CourseType }) {
                                 />
                               </FormControl>
                               <FormLabel className="font-normal">
-                                {item}
+                                {getCourseLocaleDay({ day: item, locale })}
                               </FormLabel>
                             </FormItem>
                           )
@@ -261,182 +297,26 @@ export default function CourseForm({ course }: { course?: CourseType }) {
                 name="audience"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Audience</FormLabel>
+                    <FormLabel>{locale_course.audience}</FormLabel>
                     <Select
                       onValueChange={field.onChange}
                       defaultValue={field.value}
                     >
                       <FormControl>
                         <SelectTrigger>
-                          <SelectValue placeholder="Select Audience" />
+                          <SelectValue
+                            placeholder={`${locale_utils.select} ${locale_course.audience}`}
+                          />
                         </SelectTrigger>
                       </FormControl>
                       <SelectContent>
                         {courseAudienceEnum.map((audience) => (
                           <SelectItem value={audience} key={audience}>
-                            {audience}
+                            {getCourseLocaleAudience({ audience, locale })}
                           </SelectItem>
                         ))}
                       </SelectContent>
                     </Select>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-            </div>
-
-            <div className="grid gap-5 grid-cols-1 md:grid-cols-2">
-              <FormField
-                control={form.control}
-                name="startTime"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Start Time</FormLabel>
-                    <FormControl>
-                      <Input {...field} type="time" />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="endTime"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>End Time</FormLabel>
-                    <FormControl>
-                      <Input {...field} type="time" />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-            </div>
-
-            <div className="grid gap-5 grid-cols-1 md:grid-cols-2">
-              <FormField
-                control={form.control}
-                name="durationValue"
-                render={({ field }) => (
-                  <FormItem className="w-full">
-                    <FormLabel>Duration value</FormLabel>
-                    <FormControl>
-                      <Input
-                        {...field}
-                        type="number"
-                        placeholder="Enter Duration value"
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="durationPeriod"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Duration Period</FormLabel>
-                    <Select
-                      onValueChange={field.onChange}
-                      defaultValue={field.value}
-                    >
-                      <FormControl>
-                        <SelectTrigger>
-                          <SelectValue placeholder="Select Period" />
-                        </SelectTrigger>
-                      </FormControl>
-                      <SelectContent>
-                        {courseDurationPeriodEnum.map((period) => (
-                          <SelectItem value={period} key={period}>
-                            {period}
-                          </SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-            </div>
-
-            <div className="grid gap-5 grid-cols-1 md:grid-cols-2">
-              <FormField
-                control={form.control}
-                name="startDate"
-                render={({ field }) => (
-                  <FormItem className="flex flex-col">
-                    <FormLabel>Start date *</FormLabel>
-                    <Popover>
-                      <PopoverTrigger asChild>
-                        <FormControl>
-                          <Button
-                            variant={'outline'}
-                            className={cn(
-                              'w-full pl-3 text-left font-normal',
-                              !field.value && 'text-muted-foreground'
-                            )}
-                          >
-                            {field.value ? (
-                              format(field.value, 'PPP')
-                            ) : (
-                              <span>Pick a date</span>
-                            )}
-                            <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
-                          </Button>
-                        </FormControl>
-                      </PopoverTrigger>
-                      <PopoverContent className="w-auto p-0" align="start">
-                        <Calendar
-                          mode="single"
-                          selected={field.value}
-                          onSelect={field.onChange}
-                          disabled={(date) => date < new Date('1900-01-01')}
-                          initialFocus
-                        />
-                      </PopoverContent>
-                    </Popover>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-
-              <FormField
-                control={form.control}
-                name="endDate"
-                render={({ field }) => (
-                  <FormItem className="flex flex-col">
-                    <FormLabel>End date *</FormLabel>
-                    <Popover>
-                      <PopoverTrigger asChild>
-                        <FormControl>
-                          <Button
-                            variant={'outline'}
-                            className={cn(
-                              'w-full pl-3 text-left font-normal',
-                              !field.value && 'text-muted-foreground'
-                            )}
-                          >
-                            {field.value ? (
-                              format(field.value, 'PPP')
-                            ) : (
-                              <span>Pick a date</span>
-                            )}
-                            <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
-                          </Button>
-                        </FormControl>
-                      </PopoverTrigger>
-                      <PopoverContent className="w-auto p-0" align="start">
-                        <Calendar
-                          mode="single"
-                          selected={field.value}
-                          onSelect={field.onChange}
-                          disabled={(date) => date < new Date('1900-01-01')}
-                          initialFocus
-                        />
-                      </PopoverContent>
-                    </Popover>
                     <FormMessage />
                   </FormItem>
                 )}
@@ -449,7 +329,21 @@ export default function CourseForm({ course }: { course?: CourseType }) {
                 name="objective"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Objective</FormLabel>
+                    <FormLabel>{locale_course.objective_en}</FormLabel>
+                    <FormControl>
+                      <Editor {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              <FormField
+                control={form.control}
+                name="objective"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>{locale_course.objective_fr}</FormLabel>
                     <FormControl>
                       <Editor {...field} />
                     </FormControl>
@@ -465,7 +359,21 @@ export default function CourseForm({ course }: { course?: CourseType }) {
                 name="curriculum"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Curriculum</FormLabel>
+                    <FormLabel>{locale_course.curriculum_en}</FormLabel>
+                    <FormControl>
+                      <Editor {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              <FormField
+                control={form.control}
+                name="objective"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>{locale_course.curriculum_fr}</FormLabel>
                     <FormControl>
                       <Editor {...field} />
                     </FormControl>
@@ -479,10 +387,17 @@ export default function CourseForm({ course }: { course?: CourseType }) {
               {isLoading ? (
                 <>
                   <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                  Adding Course...
+                  {course
+                    ? locale_course.actions.update_course
+                    : locale_course.actions.add_course}
+                  ...
                 </>
               ) : (
-                'Add Course'
+                <>
+                  {course
+                    ? locale_course.actions.update_course
+                    : locale_course.actions.add_course}
+                </>
               )}
             </Button>
           </form>

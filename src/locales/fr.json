@@ -23,6 +23,9 @@
       "courses": {
         "actions": {
           "add_course": "Ajouter un cours",
+          "add_new_course": "Ajouter un nouveau cours",
+          "add_new_course_description": "Entrez les informations du cours pour ajouter un nouveau cours",
+          "edit_course_description": "Entrez les informations du cours pour modifier ce cours",
           "view_course": "Voir le cours",
           "edit_course": "Modifier le cours",
           "update_course": "Mettre à jour le cours",
@@ -67,6 +70,10 @@
     "wednesdays": "les mercredis",
     "thursdays": "les jeudis",
     "fridays": "les vendredis",
-    "saturdays": "les samedis"
+    "saturdays": "les samedis",
+    "enter": "Entrer",
+    "select": "Sélectionner",
+    "in-person": "en personne",
+    "online": "En ligne"
   }
 }

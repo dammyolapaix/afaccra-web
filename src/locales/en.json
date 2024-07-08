@@ -23,6 +23,9 @@
       "courses": {
         "actions": {
           "add_course": "Add Course",
+          "add_new_course": "Add New Course",
+          "add_new_course_description": "Enter the course information to add a new course",
+          "edit_course_description": "Enter the course information to edit this course",
           "view_course": "View Course",
           "edit_course": "Edit Course",
           "update_course": "Update Course",
@@ -67,6 +70,9 @@
     "wednesdays": "wednesdays",
     "thursdays": "thursdays",
     "fridays": "fridays",
-    "saturdays": "saturdays"
+    "saturdays": "saturdays",
+    "enter": "Enter",
+    "in-person": "in-person",
+    "online": "Online"
   }
 }

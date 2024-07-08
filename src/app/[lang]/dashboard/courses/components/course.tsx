@@ -57,7 +57,7 @@ export default function Course({
           </TabsTrigger>
         </TabsList>
         <TabsContent value="course">
-          <CourseDetails course={course} locale={locale} lang={lang} />
+          <CourseDetails course={course} locale={locale} />
         </TabsContent>
         <TabsContent value="price">
           <CoursePricesTable prices={course.prices} />
