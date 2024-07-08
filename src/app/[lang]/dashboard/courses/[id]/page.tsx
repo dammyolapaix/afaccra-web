@@ -6,7 +6,10 @@ import { CourseResType } from '../course.types'
 export default async function DashboardSingleCoursePage({
   params: { id, lang },
 }: {
-  params: { id: string; lang: 'en' | 'fr' }
+  params: {
+    id: string
+    lang: 'en' | 'fr'
+  }
 }) {
   const { course } = (await getSingleCourseById({ id })) as CourseResType
 

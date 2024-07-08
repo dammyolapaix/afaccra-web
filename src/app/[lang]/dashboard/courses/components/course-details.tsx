@@ -4,6 +4,7 @@ import { Label } from '@/components/ui/label'
 import { Input } from '@/components/ui/input'
 import { marked } from 'marked'
 import { LocaleType } from '@/types'
+import { getCourseLocaleDays } from '../course.utils'
 
 export default function CourseDetails({
   course: {
@@ -15,52 +16,17 @@ export default function CourseDetails({
     language,
     objective,
   },
-  locale: {
+  locale,
+}: {
+  course: CourseType
+  locale: LocaleType
+}) {
+  const {
     utils: locale_utils,
     pages: {
       dashboard: { courses: locale_course },
     },
-  },
-  lang,
-}: {
-  course: CourseType
-  locale: LocaleType
-  lang: 'en' | 'fr'
-}) {
-  const getCourseLocaleDays = () => {
-    let locale_days: string[] = []
-
-    days.map((day) => {
-      switch (day) {
-        case 'sundays':
-          locale_days = [...locale_days, locale_utils.sundays]
-          break
-        case 'mondays':
-          locale_days = [...locale_days, locale_utils.mondays]
-          break
-        case 'tuesdays':
-          locale_days = [...locale_days, locale_utils.tuesdays]
-          break
-        case 'wednesdays':
-          locale_days = [...locale_days, locale_utils.wednesdays]
-          break
-        case 'thursdays':
-          locale_days = [...locale_days, locale_utils.thursdays]
-          break
-        case 'fridays':
-          locale_days = [...locale_days, locale_utils.fridays]
-          break
-        case 'saturdays':
-          locale_days = [...locale_days, locale_utils.saturdays]
-          break
-        default:
-          break
-      }
-    })
-
-    return locale_days
-  }
-
+  } = locale
   return (
     <Card>
       <CardHeader>
@@ -107,7 +73,7 @@ export default function CourseDetails({
             <Label>{locale_course.days}</Label>
             <div className="mt-3 flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50">
               {days
-                ? getCourseLocaleDays().map((day) => (
+                ? getCourseLocaleDays({ days, locale }).map((day) => (
                     <span key={day} className="mr-2">
                       {day}
                     </span>
