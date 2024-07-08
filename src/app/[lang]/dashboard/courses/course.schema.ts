@@ -46,45 +46,20 @@ export const courseSchema = z
         message: 'error.course.titleFr_3_min',
       })
       .optional(),
-    startDate: z.coerce
-      .date({
-        invalid_type_error: "That's not a date!",
-      })
-      .optional(),
-    endDate: z.coerce
-      .date({
-        invalid_type_error: "That's not a date!",
-      })
-      .optional(),
-    startTime: z
-      .string()
-      // .time({ message: 'error.course.startTime_invalid' })
-      .optional(),
-    endTime: z
-      .string()
-      // .time({ message: 'error.course.endTime_invalid' })
-      .optional(),
-    days: z.enum(courseDaysEnum).array(),
     deliveryMode: z.enum(courseDeliveryModeEnum).optional(),
-    durationPeriod: z.enum(courseDurationPeriodEnum).optional(),
-    durationValue: z.coerce.number().optional(),
-    objective: z.string().optional(),
-    curriculum: z.string().optional(),
+    days: z.enum(courseDaysEnum).array(),
     audience: z.enum(courseAudienceEnum).optional(),
     language: z.enum(courseLanguageEnum).optional(),
+    objectiveEn: z.string().optional(),
+    objectiveFr: z.string().optional(),
+    curriculumEn: z.string().optional(),
+    curriculumFr: z.string().optional(),
     isPublished: z.boolean().optional(),
   })
   .superRefine((val, ctx) => {
-    if (!areAllOrNoneProvided(val, ['durationPeriod', 'durationValue'])) {
-      ctx.addIssue({
-        code: 'custom',
-        message: 'Both durationPeriod and durationValue are required',
-        path: ['durationPeriod'],
-      })
-    }
     if (!val.titleEn && !val.titleFr) {
       ctx.addIssue({
-        message: 'error.course.title_required',
+        message: 'locale.pages.dashboard.courses.add_course',
         code: 'custom',
         path: ['titleEn'],
       })

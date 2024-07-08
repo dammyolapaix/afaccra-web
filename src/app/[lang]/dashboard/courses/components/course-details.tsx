@@ -14,7 +14,10 @@ export default function CourseDetails({
     audience,
     deliveryMode,
     language,
-    objective,
+    objectiveEn,
+    objectiveFr,
+    curriculumEn,
+    curriculumFr,
   },
   locale,
 }: {
@@ -102,7 +105,7 @@ export default function CourseDetails({
             <div
               className="markdown my-10"
               dangerouslySetInnerHTML={{
-                __html: marked(objective ? objective : ''),
+                __html: marked(objectiveEn ? objectiveEn : ''),
               }}
             />
           </div>
@@ -111,7 +114,7 @@ export default function CourseDetails({
             <div
               className="markdown my-10"
               dangerouslySetInnerHTML={{
-                __html: marked(objective ? objective : ''),
+                __html: marked(objectiveFr ? objectiveFr : ''),
               }}
             />
           </div>
@@ -122,7 +125,7 @@ export default function CourseDetails({
             <div
               className="markdown my-10"
               dangerouslySetInnerHTML={{
-                __html: marked(objective ? objective : ''),
+                __html: marked(curriculumEn ? curriculumEn : ''),
               }}
             />
           </div>
@@ -131,7 +134,7 @@ export default function CourseDetails({
             <div
               className="markdown my-10"
               dangerouslySetInnerHTML={{
-                __html: marked(objective ? objective : ''),
+                __html: marked(curriculumFr ? curriculumFr : ''),
               }}
             />
           </div>

@@ -6,7 +6,6 @@ import {
   courseAudienceEnum,
   courseDaysEnum,
   courseDeliveryModeEnum,
-  courseDurationPeriodEnum,
   courseLanguageEnum,
   courseSchema,
 } from '../course.schema'
@@ -35,15 +34,8 @@ import {
   SelectValue,
 } from '@/components/ui/select'
 import { Checkbox } from '@/components/ui/checkbox'
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from '@/components/ui/popover'
-import { Calendar } from '@/components/ui/calendar'
-import { CalendarIcon, Loader2 } from 'lucide-react'
-import { cn, getDifferingFields } from '@/lib/utils'
-import { format } from 'date-fns'
+import { Loader2 } from 'lucide-react'
+import { getDifferingFields } from '@/lib/utils'
 import { Button } from '@/components/ui/button'
 import { useState } from 'react'
 import { addCourseAction, updateCourseAction } from '../course.actions'
@@ -83,17 +75,11 @@ export default function CourseForm({
       audience: course?.audience ? course.audience : undefined,
       language: course?.language ? course.language : undefined,
       deliveryMode: course?.deliveryMode ? course.deliveryMode : undefined,
-      durationPeriod: course?.durationPeriod
-        ? course.durationPeriod
-        : undefined,
-      durationValue: course?.durationValue ? course.durationValue : undefined,
-      startDate: course?.startDate ? course.startDate : undefined,
-      endDate: course?.endDate ? course.endDate : undefined,
-      startTime: course?.startTime ? course.startTime : undefined,
-      endTime: course?.endTime ? course.endTime : undefined,
-      objective: course?.objective ? course.objective : undefined,
-      curriculum: course?.curriculum ? course.curriculum : undefined,
       days: course?.days ? course.days : [],
+      objectiveEn: course?.objectiveEn ? course.objectiveEn : undefined,
+      objectiveFr: course?.objectiveFr ? course.objectiveEn : undefined,
+      curriculumEn: course?.curriculumEn ? course.curriculumEn : undefined,
+      curriculumFr: course?.curriculumFr ? course.curriculumFr : undefined,
     },
   })
 
@@ -326,7 +312,7 @@ export default function CourseForm({
             <div className="grid gap-5 grid-cols-1 md:grid-cols-1">
               <FormField
                 control={form.control}
-                name="objective"
+                name="objectiveEn"
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>{locale_course.objective_en}</FormLabel>
@@ -340,7 +326,7 @@ export default function CourseForm({
 
               <FormField
                 control={form.control}
-                name="objective"
+                name="objectiveFr"
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>{locale_course.objective_fr}</FormLabel>
@@ -356,7 +342,7 @@ export default function CourseForm({
             <div className="grid gap-5 grid-cols-1 md:grid-cols-1">
               <FormField
                 control={form.control}
-                name="curriculum"
+                name="curriculumEn"
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>{locale_course.curriculum_en}</FormLabel>
@@ -370,7 +356,7 @@ export default function CourseForm({
 
               <FormField
                 control={form.control}
-                name="objective"
+                name="curriculumFr"
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>{locale_course.curriculum_fr}</FormLabel>
