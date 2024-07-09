@@ -15,6 +15,8 @@ import useSearchParamsQuery from '@/hooks/use-search-params-query'
 import { useState } from 'react'
 import { LevelType } from '../levels/level.types'
 import CourseCohortsTable from '../cohorts/components/course.cohorts-table'
+import CourseClassesTable from '../classes/components/course.classes-table'
+import { CourseClassType } from '../classes/course.class.types'
 
 type TabType = 'course' | 'price' | 'schedule' | string
 
@@ -23,12 +25,14 @@ export default function Course({
   lang,
   locale,
   levels,
+  classes,
   searchParams,
 }: {
   course: CourseType
   locale: LocaleType
   lang: 'en' | 'fr'
   levels?: LevelType[]
+  classes?: CourseClassType[]
   searchParams?: { tab?: TabType }
 }) {
   const {
@@ -48,6 +52,8 @@ export default function Course({
   })
 
   const onTabChange = (value: string) => setTab(value)
+
+  console.log(classes)
 
   return (
     <section>
@@ -79,7 +85,9 @@ export default function Course({
             {locale_course.course_schedule}
           </TabsTrigger>
           <TabsTrigger value="cohort">Course Cohort</TabsTrigger>
+          <TabsTrigger value="class">Course Class</TabsTrigger>
         </TabsList>
+
         <TabsContent value="course">
           <CourseDetails course={course} locale={locale} />
         </TabsContent>
@@ -91,6 +99,13 @@ export default function Course({
         </TabsContent>
         <TabsContent value="cohort">
           <CourseCohortsTable cohorts={course.cohorts} />
+        </TabsContent>
+        <TabsContent value="class">
+          {classes ? (
+            <CourseClassesTable classes={classes} prices={course.prices} />
+          ) : (
+            <></>
+          )}
         </TabsContent>
       </Tabs>
     </section>
