@@ -2,7 +2,10 @@ import { z } from 'zod'
 
 export const courseScheduleSchema = z.object({
   courseId: z.string().uuid(),
-  time: z.string({
-    required_error: 'The time is required',
+  startTime: z.string({
+    required_error: 'The starting time is required',
+  }),
+  endTime: z.string({
+    required_error: 'The ending time is required',
   }),
 })

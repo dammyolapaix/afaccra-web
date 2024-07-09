@@ -84,9 +84,9 @@ export default function Course({
         <TabsContent value="price">
           <CoursePricesTable prices={course.prices} levels={levels} />
         </TabsContent>
-        {/* <TabsContent value="schedule">
+        <TabsContent value="schedule">
           <CourseSchedulesTable schedules={course.schedules} />
-        </TabsContent> */}
+        </TabsContent>
       </Tabs>
     </section>
   )

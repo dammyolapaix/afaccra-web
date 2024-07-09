@@ -49,7 +49,8 @@ export default function CourseScheduleForm({
   const form = useForm<CourseScheduleFormType>({
     resolver: zodResolver(courseScheduleSchema),
     defaultValues: {
-      time: schedule?.time ? schedule.time : undefined,
+      startTime: schedule?.startTime ? schedule.startTime : undefined,
+      endTime: schedule?.endTime ? schedule.endTime : undefined,
       courseId: params.id ? (params.id as string) : undefined,
     },
   })
@@ -115,10 +116,25 @@ export default function CourseScheduleForm({
             <div className="grid gap-5 grid-cols-1">
               <FormField
                 control={form.control}
-                name="time"
+                name="startTime"
                 render={({ field }) => (
                   <FormItem className="w-full">
-                    <FormLabel>Time</FormLabel>
+                    <FormLabel>Starting time</FormLabel>
+                    <FormControl>
+                      <Input {...field} type="time" placeholder="Enter Time" />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </div>
+            <div className="grid gap-5 grid-cols-1">
+              <FormField
+                control={form.control}
+                name="endTime"
+                render={({ field }) => (
+                  <FormItem className="w-full">
+                    <FormLabel>Ending time</FormLabel>
                     <FormControl>
                       <Input {...field} type="time" placeholder="Enter Time" />
                     </FormControl>

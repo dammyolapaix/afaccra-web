@@ -7,18 +7,15 @@ import {
   CourseScheduleResType,
 } from './course.schedule.types'
 
-const createEndPoint = (courseId: string) => `/courses/${courseId}/schedules`
 const endPoint = '/schedules'
 
 export const addCourseSchedule = async (
   schedule: CourseScheduleFormType
 ): Promise<CourseScheduleResType | ErrorResType> => {
-  const { courseId, ...rest } = schedule
-
   try {
     const { data } = await makeRequest.post<CourseScheduleResType>(
-      `${createEndPoint(courseId)}`,
-      rest,
+      endPoint,
+      schedule,
       {
         headers: {
           Authorization: cookies().has('token')

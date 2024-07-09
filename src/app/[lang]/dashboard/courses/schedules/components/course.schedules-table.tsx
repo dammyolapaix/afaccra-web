@@ -39,7 +39,8 @@ export default function CourseSchedulesTable({
             <Table>
               <TableHeader>
                 <TableRow>
-                  <TableHead>Time</TableHead>
+                  <TableHead>Staring Time</TableHead>
+                  <TableHead>Ending Time</TableHead>
                   <TableHead>Action</TableHead>
                 </TableRow>
               </TableHeader>

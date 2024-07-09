@@ -11,7 +11,10 @@ export default function CourseSchedulesTableItem({
   return (
     <TableRow>
       <TableCell className="font-medium">
-        {convertTimeToAMPM(schedule.time)}
+        {convertTimeToAMPM(schedule.startTime)}
+      </TableCell>
+      <TableCell className="font-medium">
+        {convertTimeToAMPM(schedule.endTime)}
       </TableCell>
       <TableCell className="hidden sm:table-cell">
         <CourseScheduleForm schedule={schedule} />
