@@ -17,6 +17,8 @@ import { CoursePriceType } from '../course.price.types'
 import NotFound from '@/components/not-found'
 import CoursePriceForm from './course-price-form'
 import { LevelType } from '../../levels/level.types'
+import { useSearchParamsQuery } from '@/hooks'
+import { CourseType } from '../../course.types'
 
 export default function CoursePricesTable({
   prices,
@@ -25,6 +27,11 @@ export default function CoursePricesTable({
   prices: CoursePriceType[]
   levels?: LevelType[]
 }) {
+  const audienceParams = useSearchParamsQuery({
+    query: 'audience',
+    action: 'get',
+  }) as CourseType['audience']
+
   return (
     <>
       <div className="flex items-center mb-3">
@@ -43,8 +50,19 @@ export default function CoursePricesTable({
               <TableHeader>
                 <TableRow>
                   <TableHead>Amount</TableHead>
-                  <TableHead className="hidden sm:table-cell">Level</TableHead>
-                  <TableHead className="hidden sm:table-cell">Child</TableHead>
+
+                  {audienceParams === 'adults' && (
+                    <TableHead className="hidden sm:table-cell">
+                      Level
+                    </TableHead>
+                  )}
+
+                  {audienceParams === 'kids' && (
+                    <TableHead className="hidden sm:table-cell">
+                      Child
+                    </TableHead>
+                  )}
+                  <TableHead>Action</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>

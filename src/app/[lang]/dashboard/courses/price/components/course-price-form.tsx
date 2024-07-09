@@ -44,9 +44,10 @@ import {
   addCoursePriceAction,
   updateCoursePriceAction,
 } from '../course.price.actions'
-import { useParams, useSearchParams } from 'next/navigation'
+import { useParams } from 'next/navigation'
 import { LevelType } from '../../levels/level.types'
 import { CourseType } from '../../course.types'
+import { useSearchParamsQuery } from '@/hooks'
 
 export default function CoursePriceForm({
   price,
@@ -60,10 +61,10 @@ export default function CoursePriceForm({
     audience: CourseType['audience']
   }
 
-  const searchParams = useSearchParams()
-  const audienceParams = new URLSearchParams(searchParams).get(
-    'audience'
-  ) as CourseType['audience']
+  const audienceParams = useSearchParamsQuery({
+    query: 'audience',
+    action: 'get',
+  }) as CourseType['audience']
 
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const [dialogIsOpen, setDialogIsOpen] = useState<boolean>(false)
