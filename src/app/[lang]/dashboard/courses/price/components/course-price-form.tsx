@@ -28,7 +28,7 @@ import {
 } from '@/components/ui/dialog'
 import { Loader2, Pencil, Plus } from 'lucide-react'
 import { Button } from '@/components/ui/button'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { toast } from 'react-toastify'
 import { ErrorResType } from '@/types'
 import {
@@ -38,21 +38,32 @@ import {
 } from '../course.price.types'
 import {
   courseChildPriceTypeEnum,
-  courseLevelPriceTypeEnum,
   coursePriceSchema,
 } from '../course.price.schema'
 import {
   addCoursePriceAction,
   updateCoursePriceAction,
 } from '../course.price.actions'
-import { useParams } from 'next/navigation'
+import { useParams, useSearchParams } from 'next/navigation'
+import { LevelType } from '../../levels/level.types'
+import { CourseType } from '../../course.types'
 
 export default function CoursePriceForm({
   price,
+  levels,
 }: {
   price?: CoursePriceType
+  levels: LevelType[]
 }) {
-  const params = useParams()
+  const params = useParams() as {
+    id: string
+    audience: CourseType['audience']
+  }
+
+  const searchParams = useSearchParams()
+  const audienceParams = new URLSearchParams(searchParams).get(
+    'audience'
+  ) as CourseType['audience']
 
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const [dialogIsOpen, setDialogIsOpen] = useState<boolean>(false)
@@ -62,7 +73,7 @@ export default function CoursePriceForm({
     defaultValues: {
       amount: price?.amount ? price.amount / 100 : undefined,
       child: price?.child ? price.child : undefined,
-      level: price?.level ? price.level : undefined,
+      levelId: price?.levelId ? price.levelId : undefined,
       courseId: params.id ? (params.id as string) : undefined,
     },
   })
@@ -95,8 +106,6 @@ export default function CoursePriceForm({
     }
   }
 
-  useEffect(() => {}, [params.id])
-
   return (
     <Dialog open={dialogIsOpen} onOpenChange={setDialogIsOpen}>
       <DialogTrigger asChild>
@@ -118,64 +127,70 @@ export default function CoursePriceForm({
         </DialogHeader>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-            <div className="grid gap-5 grid-cols-1">
-              <FormField
-                control={form.control}
-                name="level"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Level</FormLabel>
-                    <Select
-                      onValueChange={field.onChange}
-                      defaultValue={field.value}
-                    >
-                      <FormControl>
-                        <SelectTrigger>
-                          <SelectValue placeholder="Select Level" />
-                        </SelectTrigger>
-                      </FormControl>
-                      <SelectContent>
-                        {courseLevelPriceTypeEnum.map((level) => (
-                          <SelectItem value={level} key={level}>
-                            {level}
-                          </SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-            </div>
-            <div className="grid gap-5 grid-cols-1">
-              <FormField
-                control={form.control}
-                name="child"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Child</FormLabel>
-                    <Select
-                      onValueChange={field.onChange}
-                      defaultValue={field.value}
-                    >
-                      <FormControl>
-                        <SelectTrigger>
-                          <SelectValue placeholder="Select Child" />
-                        </SelectTrigger>
-                      </FormControl>
-                      <SelectContent>
-                        {courseChildPriceTypeEnum.map((child) => (
-                          <SelectItem value={child} key={child}>
-                            {child}
-                          </SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-            </div>
+            {audienceParams === 'adults' && (
+              <div className="grid gap-5 grid-cols-1">
+                <FormField
+                  control={form.control}
+                  name="levelId"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Level</FormLabel>
+                      <Select
+                        onValueChange={field.onChange}
+                        defaultValue={field.value}
+                      >
+                        <FormControl>
+                          <SelectTrigger>
+                            <SelectValue placeholder="Select Level" />
+                          </SelectTrigger>
+                        </FormControl>
+                        <SelectContent>
+                          {levels.map(({ id, name }) => (
+                            <SelectItem value={id} key={id}>
+                              {name}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              </div>
+            )}
+
+            {audienceParams === 'kids' && (
+              <div className="grid gap-5 grid-cols-1">
+                <FormField
+                  control={form.control}
+                  name="child"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Child</FormLabel>
+                      <Select
+                        onValueChange={field.onChange}
+                        defaultValue={field.value}
+                      >
+                        <FormControl>
+                          <SelectTrigger>
+                            <SelectValue placeholder="Select Child" />
+                          </SelectTrigger>
+                        </FormControl>
+                        <SelectContent>
+                          {courseChildPriceTypeEnum.map((child) => (
+                            <SelectItem value={child} key={child}>
+                              {child}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              </div>
+            )}
+
             <div className="grid gap-5 grid-cols-1">
               <FormField
                 control={form.control}

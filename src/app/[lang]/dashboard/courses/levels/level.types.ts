@@ -6,5 +6,5 @@ export type LevelType = {
 export type LevelsResType = {
   success: true
   count: number
-  courses: LevelType[]
+  levels: LevelType[]
 }

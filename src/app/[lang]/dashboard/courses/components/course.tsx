@@ -1,4 +1,5 @@
-import React from 'react'
+'use client'
+
 import { CourseType } from '../course.types'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import CourseDetails from './course-details'
@@ -10,21 +11,42 @@ import Link from 'next/link'
 import { EDIT_COURSE_ROUTE } from '../course.routes'
 import { CoursePublishModal } from './course-publish-modal'
 import { LocaleType } from '@/types'
+import useSearchParamsQuery from '@/hooks/use-search-params-query'
+import { useState } from 'react'
+import { LevelType } from '../levels/level.types'
+
+type TabType = 'course' | 'price' | 'schedule' | string
 
 export default function Course({
   course,
   lang,
   locale,
+  levels,
+  searchParams,
 }: {
   course: CourseType
   locale: LocaleType
   lang: 'en' | 'fr'
+  levels?: LevelType[]
+  searchParams?: { tab?: TabType }
 }) {
   const {
     pages: {
       dashboard: { courses: locale_course },
     },
   } = locale
+
+  const [tab, setTab] = useState<TabType>(
+    searchParams?.tab ? searchParams.tab : 'course'
+  )
+
+  useSearchParamsQuery({ query: 'tab', value: tab })
+  useSearchParamsQuery({
+    query: 'audience',
+    value: course.audience === 'adults' ? 'adults' : 'kids',
+  })
+
+  const onTabChange = (value: string) => setTab(value)
 
   return (
     <section>
@@ -46,7 +68,7 @@ export default function Course({
         </div>
       </div>
 
-      <Tabs defaultValue="course">
+      <Tabs value={tab} onValueChange={onTabChange}>
         <TabsList>
           <TabsTrigger value="course">
             {locale_course.course_details}
@@ -60,7 +82,7 @@ export default function Course({
           <CourseDetails course={course} locale={locale} />
         </TabsContent>
         <TabsContent value="price">
-          <CoursePricesTable prices={course.prices} />
+          <CoursePricesTable prices={course.prices} levels={levels} />
         </TabsContent>
         {/* <TabsContent value="schedule">
           <CourseSchedulesTable schedules={course.schedules} />

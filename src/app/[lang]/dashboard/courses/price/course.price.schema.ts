@@ -10,7 +10,7 @@ export const courseChildPriceTypeEnum = [
 
 export const coursePriceSchema = z.object({
   courseId: z.string().uuid(),
-  level: z.enum(courseLevelPriceTypeEnum).optional(),
+  levelId: z.string().uuid().optional(),
   child: z.enum(courseChildPriceTypeEnum).optional(),
   amount: z.coerce.number(),
 })

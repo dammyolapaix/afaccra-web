@@ -4,18 +4,15 @@ import { cookies } from 'next/headers'
 import { AxiosError } from 'axios'
 import { CoursePriceFormType, CoursePriceResType } from './course.price.types'
 
-const createEndPoint = (courseId: string) => `/courses/${courseId}/prices`
 const endPoint = '/prices'
 
 export const addCoursePrice = async (
   price: CoursePriceFormType
 ): Promise<CoursePriceResType | ErrorResType> => {
-  const { courseId, ...rest } = price
-
   try {
     const { data } = await makeRequest.post<CoursePriceResType>(
-      `${createEndPoint(courseId)}`,
-      rest,
+      endPoint,
+      price,
       {
         headers: {
           Authorization: cookies().has('token')
