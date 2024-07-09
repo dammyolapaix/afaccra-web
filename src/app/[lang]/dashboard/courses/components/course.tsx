@@ -14,6 +14,7 @@ import { LocaleType } from '@/types'
 import useSearchParamsQuery from '@/hooks/use-search-params-query'
 import { useState } from 'react'
 import { LevelType } from '../levels/level.types'
+import CourseCohortsTable from '../cohorts/components/course.cohorts-table'
 
 type TabType = 'course' | 'price' | 'schedule' | string
 
@@ -77,6 +78,7 @@ export default function Course({
           <TabsTrigger value="schedule">
             {locale_course.course_schedule}
           </TabsTrigger>
+          <TabsTrigger value="cohort">Course Cohort</TabsTrigger>
         </TabsList>
         <TabsContent value="course">
           <CourseDetails course={course} locale={locale} />
@@ -86,6 +88,9 @@ export default function Course({
         </TabsContent>
         <TabsContent value="schedule">
           <CourseSchedulesTable schedules={course.schedules} />
+        </TabsContent>
+        <TabsContent value="cohort">
+          <CourseCohortsTable cohorts={course.cohorts} />
         </TabsContent>
       </Tabs>
     </section>
