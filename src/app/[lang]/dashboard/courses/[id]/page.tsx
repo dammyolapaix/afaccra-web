@@ -4,12 +4,11 @@ import { getSingleCourseById } from '../course.services'
 import { CourseResType } from '../course.types'
 import { LevelsResType, LevelType } from '../levels/level.types'
 import { getLevels } from '../levels/level.services'
-import { getClasses } from '../classes/course.class.services'
 import {
   CourseClassesResType,
-  CourseClassResType,
   CourseClassType,
-} from '../classes/course.class.types'
+} from '../../classes/classes.types'
+import { getClasses } from '../../classes/class.services'
 
 type SearchParamsType = {
   tab?: 'course' | 'price' | 'schedule' | 'class'

@@ -24,11 +24,7 @@ import { Button } from '@/components/ui/button'
 import { useEffect, useState } from 'react'
 import { toast } from 'react-toastify'
 import { ErrorResType } from '@/types'
-import {
-  CourseClassFormType,
-  CourseClassResType,
-  CourseClassType,
-} from '../course.class.types'
+import { CourseClassFormType } from '../course.class.types'
 import { courseClassSchema } from '../course.class.schema'
 import {
   addCourseClassAction,
@@ -46,6 +42,10 @@ import { CoursePriceType } from '../../price/course.price.types'
 import { formatToMoney } from '@/lib/utils'
 import { useSearchParamsQuery } from '@/hooks'
 import { CourseType } from '../../course.types'
+import {
+  CourseClassResType,
+  CourseClassType,
+} from '../../../classes/classes.types'
 
 export default function CourseClassForm({
   classInfo,
@@ -55,8 +55,6 @@ export default function CourseClassForm({
   prices: CoursePriceType[]
 }) {
   const params = useParams()
-
-  console.log(params)
 
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const [dialogIsOpen, setDialogIsOpen] = useState<boolean>(false)
