@@ -1,3 +1,5 @@
+import Classes from './components/classes'
+
 export default function ClassesPage() {
-  return <div>pages</div>
+  return <Classes />
 }
