@@ -16,7 +16,7 @@ import { useState } from 'react'
 import { LevelType } from '../levels/level.types'
 import CourseCohortsTable from '../cohorts/components/course.cohorts-table'
 import CourseClassesTable from '../classes/components/course.classes-table'
-import { CourseClassType } from '../classes/course.class.types'
+import { CourseClassType } from '../../classes/classes.types'
 
 type TabType = 'course' | 'price' | 'schedule' | string
 
@@ -52,8 +52,6 @@ export default function Course({
   })
 
   const onTabChange = (value: string) => setTab(value)
-
-  console.log(classes)
 
   return (
     <section>
