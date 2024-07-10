@@ -2,9 +2,36 @@ import { makeRequest } from '@/lib'
 import { ErrorResType } from '@/types'
 import { cookies } from 'next/headers'
 import { AxiosError } from 'axios'
-import { CoursePriceFormType, CoursePriceResType } from './course.price.types'
+import {
+  CoursePriceFormType,
+  CoursePriceQueryTye,
+  CoursePriceResType,
+  CoursePricesResType,
+} from './course.price.types'
+import { getQueryStr } from '@/lib/utils'
 
 const endPoint = '/prices'
+
+export const getCoursePrices = async (
+  query?: CoursePriceQueryTye
+): Promise<CoursePricesResType | ErrorResType> => {
+  try {
+    const { data } = await makeRequest.get<CoursePricesResType>(
+      query ? `${endPoint}${getQueryStr(query)}` : endPoint,
+      {
+        headers: {
+          Authorization: cookies().has('token')
+            ? `Bearer ${cookies().get('token')?.value}`
+            : undefined,
+        },
+      }
+    )
+
+    return data
+  } catch (error) {
+    return (error as AxiosError).response?.data as ErrorResType
+  }
+}
 
 export const addCoursePrice = async (
   price: CoursePriceFormType

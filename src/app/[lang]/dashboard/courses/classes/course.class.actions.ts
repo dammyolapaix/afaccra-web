@@ -4,6 +4,7 @@ import { revalidatePath } from 'next/cache'
 import { CourseClassFormType } from './course.class.types'
 import { addCourseClass, updateCourseClass } from './course.class.services'
 import { SINGLE_COURSE_ROUTE } from '../course.routes'
+import { SINGLE_CLASS_ROUTE } from '../../classes/class.routes'
 
 export const addCourseClassAction = async (
   classFormInput: CourseClassFormType,
@@ -32,6 +33,7 @@ export const updateCourseClassAction = async ({
   if (!res.success) return res
 
   revalidatePath(SINGLE_COURSE_ROUTE(courseId))
+  revalidatePath(SINGLE_CLASS_ROUTE(id))
 
   return res
 }

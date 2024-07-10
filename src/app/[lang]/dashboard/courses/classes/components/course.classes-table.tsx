@@ -36,7 +36,7 @@ export default function CourseClassesTable({
     <>
       <div className="flex items-center mb-3">
         <div className="ml-auto flex items-center gap-2">
-          <CourseClassForm prices={prices} />
+          <CourseClassForm prices={prices} audience={audienceParams} />
         </div>
       </div>
       {classes.length > 0 ? (
@@ -73,7 +73,9 @@ export default function CourseClassesTable({
           info={{
             message: 'No class found',
             description: 'Add a new class for this course',
-            modal: <CourseClassForm prices={prices} />,
+            modal: (
+              <CourseClassForm prices={prices} audience={audienceParams} />
+            ),
           }}
         />
       )}

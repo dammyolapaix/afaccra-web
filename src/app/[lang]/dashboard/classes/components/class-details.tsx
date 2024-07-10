@@ -3,16 +3,30 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Label } from '@/components/ui/label'
 import { Input } from '@/components/ui/input'
 import { formatToMoney } from '@/lib/utils'
+import { CoursePriceType } from '../../courses/price/course.price.types'
+import CourseClassForm from '../../courses/classes/components/course-class-form'
 
 export default function ClassDetails({
-  classInfo: { name, displayOnWebsite, level, price },
+  classInfo,
+  prices,
 }: {
   classInfo: CourseClassType
+  prices: CoursePriceType[]
 }) {
+  const { name, displayOnWebsite, level, price } = classInfo
+
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Class Details</CardTitle>
+        <div className="flex justify-between items-center">
+          <CardTitle>Class Details</CardTitle>
+
+          <CourseClassForm
+            classInfo={classInfo}
+            prices={prices}
+            audience={price.level ? 'adults' : 'kids'}
+          />
+        </div>
       </CardHeader>
 
       <CardContent>

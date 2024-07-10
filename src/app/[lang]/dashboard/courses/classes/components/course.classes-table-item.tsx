@@ -36,7 +36,11 @@ export default function CourseClassTableItem({
         {formatToMoney(classInfo.price.amount)}
       </TableCell>
       <TableCell className="hidden sm:table-cell">
-        <CourseClassForm classInfo={classInfo} prices={prices} />
+        <CourseClassForm
+          classInfo={classInfo}
+          prices={prices}
+          audience={audienceParams}
+        />
       </TableCell>
     </TableRow>
   )
