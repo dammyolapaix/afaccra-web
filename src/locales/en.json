@@ -19,7 +19,6 @@
   },
   "pages": {
     "dashboard": {
-      "home": {},
       "courses": {
         "actions": {
           "add_course": "Add Course",
@@ -51,8 +50,7 @@
         "curriculum_en": "Curriculum (English)",
         "curriculum_fr": "Curriculum (French)"
       }
-    },
-    "marketing": {}
+    }
   },
   "utils": {
     "english": "English",
@@ -72,6 +70,7 @@
     "fridays": "fridays",
     "saturdays": "saturdays",
     "enter": "Enter",
+    "select": "Sélectionner",
     "in-person": "in-person",
     "online": "Online"
   }

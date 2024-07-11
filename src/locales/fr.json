@@ -19,7 +19,6 @@
   },
   "pages": {
     "dashboard": {
-      "home": {},
       "courses": {
         "actions": {
           "add_course": "Ajouter un cours",
@@ -51,8 +50,7 @@
         "curriculum_en": "Programme d'études (Anglais)",
         "curriculum_fr": "Programme d'études (Français)"
       }
-    },
-    "marketing": {}
+    }
   },
   "utils": {
     "english": "Anglais",

@@ -19,7 +19,6 @@ export type LocaleType = {
   }
   pages: {
     dashboard: {
-      home: {}
       courses: {
         actions: {
           add_course: string
@@ -51,7 +50,6 @@ export type LocaleType = {
         curriculum_en: string
         curriculum_fr: string
       }
-      marketing: {}
     }
   }
   utils: {
@@ -73,8 +71,8 @@ export type LocaleType = {
     saturdays: string
     enter: string
     select: string
-    'in-person': 'in-person'
-    online: 'Online'
+    'in-person': string
+    online: string
   }
 }
 
