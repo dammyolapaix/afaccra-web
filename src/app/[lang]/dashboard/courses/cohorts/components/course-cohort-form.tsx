@@ -5,12 +5,12 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import {
   Form,
   FormControl,
+  FormDescription,
   FormField,
   FormItem,
   FormLabel,
   FormMessage,
 } from '@/components/ui/form'
-import { Input } from '@/components/ui/input'
 import {
   Dialog,
   DialogContent,
@@ -43,6 +43,7 @@ import {
 import { cn } from '@/lib/utils'
 import { format } from 'date-fns'
 import { Calendar } from '@/components/ui/calendar'
+import { Checkbox } from '@/components/ui/checkbox'
 
 export default function CourseCohortForm({
   cohort,
@@ -60,6 +61,7 @@ export default function CourseCohortForm({
       startDate: cohort?.startDate ? cohort.startDate : undefined,
       endDate: cohort?.endDate ? cohort.endDate : undefined,
       courseId: params.id ? (params.id as string) : undefined,
+      isActive: cohort?.isActive ? cohort.isActive : false,
     },
   })
 
@@ -197,6 +199,29 @@ export default function CourseCohortForm({
                       </PopoverContent>
                     </Popover>
                     <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </div>
+            <div className="grid gap-5 grid-cols-1">
+              <FormField
+                control={form.control}
+                name="isActive"
+                render={({ field }) => (
+                  <FormItem className="flex flex-row items-start space-x-3 space-y-0 rounded-md border p-4">
+                    <FormControl>
+                      <Checkbox
+                        checked={field.value}
+                        onCheckedChange={field.onChange}
+                      />
+                    </FormControl>
+                    <div className="space-y-1 leading-none">
+                      <FormLabel>Set cohort as active</FormLabel>
+                      <FormDescription>
+                        This will be your current cohort student will enroll
+                        into
+                      </FormDescription>
+                    </div>
                   </FormItem>
                 )}
               />

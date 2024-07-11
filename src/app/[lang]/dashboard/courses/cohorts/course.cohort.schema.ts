@@ -10,4 +10,5 @@ export const courseCohortSchema = z.object({
     required_error: 'The ending date is required',
     invalid_type_error: 'Invalid date',
   }),
+  isActive: z.boolean().default(false),
 })
