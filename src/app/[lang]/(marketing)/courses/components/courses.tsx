@@ -9,6 +9,8 @@ import CoursesItem from './courses-item'
 export default async function Courses() {
   const { count, courses } = (await getCourses({
     isPublished: true,
+    prices: { classes: { displayOnWebsite: true } },
+    cohorts: { isActive: true },
   })) as CoursesResType
 
   return (
@@ -16,10 +18,7 @@ export default async function Courses() {
       {count > 0 ? (
         <div className="grid grid-cols-1 md:grid-cols-3">
           {courses.map((course) => (
-            <CoursesItem
-              key={course.id}
-              course={course as unknown as CourseType}
-            />
+            <CoursesItem key={course.id} course={course} />
           ))}
         </div>
       ) : (
