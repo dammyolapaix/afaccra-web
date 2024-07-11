@@ -52,41 +52,35 @@ export const getQueryStr = <T extends object>(query: T): string => {
     return ''
   }
 
-  // Iterate over each key-value pair in the query object
-  for (const key in query) {
-    if (query.hasOwnProperty(key)) {
-      let value = query[key]
+  const serialize = (obj: any, prefix = ''): void => {
+    for (const key in obj) {
+      if (obj.hasOwnProperty(key)) {
+        const value = obj[key]
 
-      // Skip null or undefined values
-      if (value === null || value === undefined) {
-        continue
-      }
+        // Skip null or undefined values
+        if (value === null || value === undefined) {
+          continue
+        }
 
-      let encodedKey = encodeURIComponent(key) // Encode key component
+        const encodedKey = encodeURIComponent(prefix ? `${prefix}.${key}` : key)
 
       // Handle array values
-      if (Array.isArray(value)) {
-        // Handle each array element
-        ;(value as any[]).forEach((val) => {
+        if (Array.isArray(value)) {
+          value.forEach((val) => {
+            queryStringParts.push(
+              `${encodedKey}=${encodeURIComponent(val.toString())}`
+            )
+          })
+        } else if (typeof value === 'object') {
+          // Recursively serialize nested objects
+          serialize(value, encodedKey)
+        } else {
           queryStringParts.push(
-            `${encodedKey}=${encodeURIComponent(val.toString())}`
+            `${encodedKey}=${encodeURIComponent(value.toString())}`
           )
-        })
-      } else if (typeof value === 'object') {
-        // Handle nested objects (not fully recursive, but handles immediate level)
-        for (const nestedKey in value) {
-          if (value.hasOwnProperty(nestedKey)) {
-            let nestedValue = value[nestedKey]
-            if (nestedValue !== null && nestedValue !== undefined) {
-              let encodedNestedKey = encodeURIComponent(`${key}.${nestedKey}`)
-              queryStringParts.push(
-                `${encodedNestedKey}=${encodeURIComponent(
-                  nestedValue.toString()
-                )}`
-              )
-            }
-          }
         }
+      }
+    }
       } else {
         let encodedValue = encodeURIComponent(value.toString()) // Encode value component
         queryStringParts.push(`${encodedKey}=${encodedValue}`)
