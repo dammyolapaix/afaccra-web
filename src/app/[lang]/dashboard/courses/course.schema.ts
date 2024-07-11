@@ -68,4 +68,18 @@ export const courseSchema = z
 
 export const getCourseQuerySchema = z.object({
   isPublished: z.boolean().optional(),
+  prices: z
+    .object({
+      classes: z
+        .object({
+          displayOnWebsite: z.boolean().optional(),
+        })
+        .optional(),
+    })
+    .optional(),
+  cohorts: z
+    .object({
+      isActive: z.boolean().optional(),
+    })
+    .optional(),
 })
