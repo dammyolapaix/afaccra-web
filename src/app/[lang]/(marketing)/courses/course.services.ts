@@ -4,10 +4,11 @@ import { CoursePurchaseTransactionInitType } from './course.types'
 import { AxiosError } from 'axios'
 import { cookies } from 'next/headers'
 
-const endPoint = '/courses/purchases'
+const endPoint = '/purchases'
 
 export const purchaseCourse = async (purchase: {
-  coursePriceId: string
+  classId: string
+  cohortId: string
 }): Promise<CoursePurchaseTransactionInitType | ErrorResType> => {
   try {
     const { data } = await makeRequest.post<CoursePurchaseTransactionInitType>(

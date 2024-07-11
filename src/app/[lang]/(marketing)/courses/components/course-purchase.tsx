@@ -9,9 +9,12 @@ import { Button } from '@/components/ui/button'
 import { Loader2 } from 'lucide-react'
 
 export default function CoursePurchase({
-  coursePriceId,
+  purchase,
 }: {
-  coursePriceId: string
+  purchase: {
+    classId: string
+    cohortId: string
+  }
 }) {
   const [isLoading, setIsLoading] = useState<boolean>(false)
 
@@ -20,7 +23,7 @@ export default function CoursePurchase({
       setIsLoading(true)
       let res: CoursePurchaseTransactionInitType | ErrorResType | null = null
 
-      res = await purchaseCourseAction({ coursePriceId })
+      res = await purchaseCourseAction(purchase)
 
       if (res === null) return
 
@@ -35,7 +38,7 @@ export default function CoursePurchase({
       console.log(error)
     }
   }
-  useEffect(() => {}, [coursePriceId])
+  useEffect(() => {}, [purchase])
   return (
     <Button
       disabled={isLoading ? true : undefined}

@@ -5,7 +5,8 @@ import { purchaseCourse } from './course.services'
 import { ALL_COURSES_ROUTE } from './course.routes'
 
 export const purchaseCourseAction = async (purchase: {
-  coursePriceId: string
+  classId: string
+  cohortId: string
 }) => {
   const res = await purchaseCourse(purchase)
 
