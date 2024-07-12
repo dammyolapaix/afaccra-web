@@ -26,6 +26,7 @@ import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { toast } from 'react-toastify'
 import { authSessionAction } from '../auth.actions'
+import Link from 'next/link'
 
 export default function LoginForm() {
   const [isLoading, setIsLoading] = useState<boolean>(false)
@@ -96,18 +97,22 @@ export default function LoginForm() {
                   </FormItem>
                 )}
               />
+              <Button
+                type="submit"
+                aria-disabled={isLoading}
+                disabled={isLoading}
+                className="block w-full"
+              >
+                Login {isLoading && '...'}
+              </Button>
+            </div>
+            <div className="mt-4 text-center text-sm">
+              Don&apos;t have an account?{' '}
+              <Link href="/register" className="underline">
+                Sign up
+              </Link>
             </div>
           </CardContent>
-          <CardFooter>
-            <Button
-              type="submit"
-              aria-disabled={isLoading}
-              disabled={isLoading}
-              className="block w-full"
-            >
-              Login {isLoading && '...'}
-            </Button>
-          </CardFooter>
         </Card>
       </form>
     </Form>
