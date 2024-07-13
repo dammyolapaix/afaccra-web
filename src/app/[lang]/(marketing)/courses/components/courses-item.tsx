@@ -4,8 +4,15 @@ import { convertTimeToAMPM, formatToMoney, timeToDate } from '@/lib/utils'
 import { CourseType } from '@/app/[lang]/dashboard/courses/course.types'
 import CoursePurchase from './course-purchase'
 import { LevelType } from '@/app/[lang]/dashboard/courses/levels/level.types'
+import { UserType } from '@/types'
 
-export default function CoursesItem({ course }: { course: CourseType }) {
+export default function CoursesItem({
+  course,
+  user,
+}: {
+  course: CourseType
+  user: UserType | null
+}) {
   const { titleEn, days, prices } = course
 
   const getLevelClass = (levelName: LevelType['name']) =>
@@ -49,6 +56,7 @@ export default function CoursesItem({ course }: { course: CourseType }) {
                   classId: A1A2Class.classes[0].id,
                   cohortId: course.cohorts[0].id,
                 }}
+                user={user}
               />
             </div>
           </div>
@@ -65,6 +73,7 @@ export default function CoursesItem({ course }: { course: CourseType }) {
                   classId: B1B2Class.classes[0].id,
                   cohortId: course.cohorts[0].id,
                 }}
+                user={user}
               />
             </div>
           </div>
@@ -81,6 +90,7 @@ export default function CoursesItem({ course }: { course: CourseType }) {
                   classId: C1C2Class.classes[0].id,
                   cohortId: course.cohorts[0].id,
                 }}
+                user={user}
               />
             </div>
           </div>
