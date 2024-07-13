@@ -5,7 +5,6 @@ import {
   Card,
   CardContent,
   CardDescription,
-  CardFooter,
   CardHeader,
   CardTitle,
 } from '@/components/ui/card'
@@ -45,7 +44,16 @@ export default function LoginForm() {
       if (!res.success)
         for (const error of res.errors) toast.error(error.message)
 
-      if (res.success) await authSessionAction({ user: res.user })
+      if (res.success)
+        await authSessionAction({
+          user: res.user,
+          redirectPath:
+            localStorage.getItem('redirect') !== null
+              ? localStorage.getItem('redirect')!
+              : undefined,
+        })
+
+      localStorage.removeItem('redirect')
     } catch (error) {
       console.log(error)
     }
