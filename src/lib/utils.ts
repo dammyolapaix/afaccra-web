@@ -64,7 +64,6 @@ export const getQueryStr = <T extends object>(query: T): string => {
 
         const encodedKey = encodeURIComponent(prefix ? `${prefix}.${key}` : key)
 
-      // Handle array values
         if (Array.isArray(value)) {
           value.forEach((val) => {
             queryStringParts.push(
@@ -84,12 +83,31 @@ export const getQueryStr = <T extends object>(query: T): string => {
       } else {
         let encodedValue = encodeURIComponent(value.toString()) // Encode value component
         queryStringParts.push(`${encodedKey}=${encodedValue}`)
-      }
-    }
   }
+
+  // Start serializing with the top-level query object
+  serialize(query)
 
   // Join all parts with '&' to form the final query string
   return queryStringParts.length > 0 ? `?${queryStringParts.join('&')}` : ''
+}
+
+export const isPasswordStrong = (password: string): boolean => {
+  // Define your complexity criteria
+  const hasUpperCase = /[A-Z]/.test(password) // Check for at least one uppercase letter
+  const hasLowerCase = /[a-z]/.test(password) // Check for at least one lowercase letter
+  const hasNumbers = /\d/.test(password) // Check for at least one digit
+  const hasSpecialChars = /[!@#$%^&*()_+{}[\]:;<>,.?~\\/-]/.test(password) // Check for at least one special character
+  const has8CharactersOrMore = password.length >= 8 // Check for at least 8 characters
+
+  //   Check if all complexity criteria are met
+  return (
+    hasUpperCase &&
+    hasLowerCase &&
+    hasNumbers &&
+    hasSpecialChars &&
+    has8CharactersOrMore
+  )
 }
 
 export const timeToDate = (time: string): Date => {
