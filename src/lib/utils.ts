@@ -80,9 +80,6 @@ export const getQueryStr = <T extends object>(query: T): string => {
         }
       }
     }
-      } else {
-        let encodedValue = encodeURIComponent(value.toString()) // Encode value component
-        queryStringParts.push(`${encodedKey}=${encodedValue}`)
   }
 
   // Start serializing with the top-level query object
